@@ -1,0 +1,7 @@
+.main {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 880px;
+    border: 1px solid red;
+}

@@ -1,0 +1,12 @@
+.footer {
+    width: 880px;
+    margin-top: 67px;
+    margin-bottom: 60px;
+    display: flex;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #545454;
+    border: 1px solid red;
+}
