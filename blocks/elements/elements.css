@@ -4,8 +4,8 @@
     margin-top: 51px;
     height: auto;
     border: 1px solid red;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(3, 282px);
+    grid-template-rows: repeat(auto-fill, auto);
     grid-column-gap: 17px;
     grid-row-gap: 20px;
 }

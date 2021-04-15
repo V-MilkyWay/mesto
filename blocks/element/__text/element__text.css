@@ -3,7 +3,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 246px;
+    max-width: 11ch;
     border: 1px solid red;
     margin-left: 21px;
     margin-top: 25px;
