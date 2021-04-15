@@ -1,0 +1,12 @@
+.profile-info__title {
+    display: flex;
+    vertical-align: text-bottom;
+    margin: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 114%;
+    color: #FFFFFF;
+    grid-area: title;
+    border: 1px solid red;
+}

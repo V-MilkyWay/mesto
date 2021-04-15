@@ -1,0 +1,10 @@
+.profile-info__subtitle {
+    display: flex;
+    margin: 0;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+    grid-area: subtitle;
+    border: 1px solid red;
+}
