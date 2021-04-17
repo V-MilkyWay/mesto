@@ -3,11 +3,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    margin: 0;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
     color: #FFFFFF;
+    background: #000000;
     grid-area: subtitle;
     border: 1px solid red;
 }

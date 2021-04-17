@@ -3,10 +3,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    vertical-align: text-bottom;
     margin: 0;
+    margin-bottom: -11px;
     font-style: normal;
     font-weight: 500;
+    background: #000000;
     color: #FFFFFF;
     grid-area: title;
     border: 1px solid red;
@@ -14,6 +15,7 @@
 
 @media screen and (min-width: 1280px) {
     .profile-info__name {
+        width: 294px;
         font-size: 42px;
         line-height: 114%;
     }
@@ -21,6 +23,7 @@
 
 @media screen and (min-width: 320px) and (max-width: 1279px) {
     .profile-info__name {
+        width: 189px;
         font-size: 27px;
         line-height: 33px;
     }
