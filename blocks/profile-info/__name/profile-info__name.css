@@ -2,9 +2,7 @@
     display: flex;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
     margin: 0;
-    margin-bottom: -11px;
     font-style: normal;
     font-weight: 500;
     color: #FFFFFF;
