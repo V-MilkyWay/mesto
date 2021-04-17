@@ -9,6 +9,10 @@
     border: 1px solid #FFFFFF;
 }
 
+.profile-info__edit-button:hover {
+    opacity: 0.8;
+}
+
 @media screen and (min-width: 1280px) {
     .profile-info__edit-button {
         width: 24px;

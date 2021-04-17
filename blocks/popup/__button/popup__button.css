@@ -8,6 +8,10 @@
     border: 1px solid red;
 }
 
+.popup__button:hover {
+    opacity: 0.8;
+}
+
 @media screen and (min-width: 1280px) {
     .popup__button {
         margin-top: 48px;
