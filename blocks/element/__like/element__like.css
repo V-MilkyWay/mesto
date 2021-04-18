@@ -1,6 +1,8 @@
 .element__like {
     cursor: pointer;
     position: absolute;
+    border: none;
+    background: none;
     right: 20px;
     bottom: 30px;
     display: flex;
