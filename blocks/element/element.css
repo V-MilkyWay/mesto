@@ -4,7 +4,6 @@
     flex-flow: column;
     overflow: hidden;
     height: 361px;
-    border: 1px solid red;
     background: #FFFFFF;
     border-radius: 10px;
 }
