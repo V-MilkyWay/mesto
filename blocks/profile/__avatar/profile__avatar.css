@@ -4,6 +4,10 @@
     height: 120px;
     border: 1px solid red;
     border-radius: 50%;
+    background: url(../../../images/avatar.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     overflow: hidden;
     justify-content: center;
 }
