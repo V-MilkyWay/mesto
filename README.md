@@ -14,4 +14,4 @@
  
  ## **Link to GitHub Pages:**    
     
-  https://v-milkyway.github.io/mesto/
+  https://v-milkyway.github.io/mesto/index.html
