@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'Inter';
     src: url('./Inter-Regular.otf');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Inter';
-    src: url('./Inter-Bold.otf');
-    font-weight: bold;
+    src: url('./Inter-Medium.otf');
+    font-weight: 500;
     font-style: normal;
 }
 
