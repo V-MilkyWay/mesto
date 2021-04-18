@@ -5,8 +5,8 @@ let profileInfo = profile.querySelector('.profile-info');
 let formElement = page.querySelector('.popup');
 
 let editButton = profileInfo.querySelector('.profile-info__edit-button');
-let closeButton = formElement.querySelector('.popup__close-icon');
-let saveButton = formElement.querySelector('.popup__button');
+let closeButton = formElement.querySelector('.popup__close-button');
+let saveButton = formElement.querySelector('.popup__save-button');
 
 let jobOutput = profileInfo.querySelector('.profile-info__job');
 let nameOutput = profileInfo.querySelector('.profile-info__name');

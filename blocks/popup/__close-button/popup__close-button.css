@@ -1,4 +1,4 @@
-.popup__close-icon {
+.popup__close-button {
     cursor: pointer;
     background: url(../../../images/Close\ Icon.svg);
     background-repeat: no-repeat;
@@ -7,12 +7,12 @@
     z-index: 2;
 }
 
-.popup__close-icon:hover {
+.popup__close-button:hover {
     opacity: 0.8;
 }
 
 @media screen and (min-width: 1280px) {
-    .popup__close-icon {
+    .popup__close-button {
         margin-bottom: 370px;
         margin-left: 458px;
         width: 40px;
@@ -21,7 +21,7 @@
 }
 
 @media screen and (min-width: 320px) and (max-width: 1279px) {
-    .popup__close-icon {
+    .popup__close-button {
         margin-bottom: 374px;
         margin-left: 253px;
         width: 26px;
