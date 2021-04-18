@@ -14,4 +14,4 @@
  
  ## **Link to GitHub Pages:**    
     
- https://v-milkyway.github.io/russian-travel/index.html 
+  https://v-milkyway.github.io/mesto/
