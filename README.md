@@ -1,17 +1,17 @@
-# Проект 4: Место
+# **Mesto**    
+    
+## **Description:**    
+    
+ This is my 3 independent project - **Single-page website**. I'm practicing my skills! So far, the project is in the works, but you can already see the use of some technologies from the largest Russian IT company - **Yandex!**    
+    
+## **Used technologies:**    
+    
+ 1. **BEM** (*Block, Element, Modifier*) - is a component approach to web development based on the principle of dividing the interface into independent blocks. BEM is used in Yandex for frontend development.    
+    
+ 2. **Media Queries** - you can create styles  for small mobile phones, tablets, laptops, and large monitors. 
 
-### Обзор
-
-* Figma
-* Картинки
-
-**Figma**
-
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+ 3. **Popup** - window that appears while visiting the page.. 
+ 
+ ## **Link to GitHub Pages:**    
+    
+ https://v-milkyway.github.io/russian-travel/index.html 
