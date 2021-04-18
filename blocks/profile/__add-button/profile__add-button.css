@@ -1,5 +1,6 @@
 .profile__add-button {
     display: flex;
+    cursor: pointer;
     background-image: url(../../../images/Vector2.svg);
     background-repeat: no-repeat;
     background-position: center;

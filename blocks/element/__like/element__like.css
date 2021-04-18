@@ -1,4 +1,5 @@
 .element__like {
+    cursor: pointer;
     position: absolute;
     right: 20px;
     bottom: 30px;

@@ -1,6 +1,7 @@
 .popup__button {
     margin: 0;
     display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
     background: #000000;
