@@ -1,9 +1,9 @@
 .element {
     position: relative;
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
+    flex-wrap: wrap;
     overflow: hidden;
-    height: 361px;
     background: #FFFFFF;
     border-radius: 10px;
 }

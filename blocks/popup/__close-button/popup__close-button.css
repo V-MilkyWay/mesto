@@ -9,7 +9,7 @@
 }
 
 .popup__close-button:hover {
-    opacity: 0.8;
+    opacity: 60%;
 }
 
 @media screen and (min-width: 1280px) {
