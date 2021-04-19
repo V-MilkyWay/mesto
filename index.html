@@ -10,13 +10,13 @@
 
 <body>
     <div class="page">
-        <div class="popup popup_opened">
+        <div class="popup">
             <div class="popup__container">
                 <button type="button" class="popup__close-button"></button>
                 <form name="profile" class="form">
                     <h2 class="form__title">Редактировать профиль</h2>
-                    <input name="name" type="text" class="form__input" value="">
-                    <input name="profession" type="text" class="form__input" value="">
+                    <input name="name" type="text" class="form__input form__input_name" value="">
+                    <input name="job" type="text" class="form__input form__input_job" value="">
                     <button type="submit" class="form__save-button">Сохранить</button>
                 </form>
             </div>
@@ -29,7 +29,7 @@
                 <img class="profile__avatar" src="./images/avatar.png" alt='Аватарка'>
                 <div class="profile-info">
                     <h1 class="profile-info__name">Жак-Ив Кусто</h1>
-                    <h2 class="profile-info__job">Исследователь океана</h2>
+                    <p class="profile-info__job">Исследователь океана</p>
                     <button type="botton" class="profile-info__edit-button"></button>
                 </div>
                 <button type="botton" class="profile__add-button"></button>
