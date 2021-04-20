@@ -12,8 +12,8 @@ let closeButton = popupContainer.querySelector('.popup__close-button');
 let jobOutput = profileInfo.querySelector('.profile-info__job');
 let nameOutput = profileInfo.querySelector('.profile-info__name');
 
-let nameInput = formElement.querySelector('.form__input_name');
-let jobInput = formElement.querySelector('.form__input_job');
+let nameInput = formElement.querySelector('.form__input_type_name');
+let jobInput = formElement.querySelector('.form__input_type_job');
 
 function openPopup() {
     nameInput.value = nameOutput.textContent;
