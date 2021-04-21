@@ -15,7 +15,6 @@ function saveButton(evt) {
     out5 = formInput[4];
     out6 = formInput[5];
 
-
     alert(`
     Заказ: ${out.value}
     Контактный телефон: ${out2.value}
