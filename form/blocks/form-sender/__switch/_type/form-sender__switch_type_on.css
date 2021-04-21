@@ -1,0 +1,7 @@
+.form-sender__switch_type_on {
+    background: linear-gradient(45deg, #C5DDE8, rgb(82, 144, 216));
+}
+
+.form-sender__switch_type_on::after {
+    left: 37px;
+}

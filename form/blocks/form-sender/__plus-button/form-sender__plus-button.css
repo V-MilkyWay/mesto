@@ -1,0 +1,21 @@
+.form-sender__plus-button {
+    display: flex;
+    margin: 0;
+    justify-self: center;
+    cursor: pointer;
+    background-image: url(../../../images/Добавить.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 46px auto;
+    background-color: #ffffff;
+    width: 234px;
+    height: 42px;
+    border: 2px solid #000000;
+    border-radius: 2px;
+    margin-top: -20px;
+    margin-bottom: -10px;
+}
+
+.form-sender__plus-button:hover {
+    opacity: 60%;
+}

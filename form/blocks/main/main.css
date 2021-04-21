@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 320px;
+}
+
+@media screen and (min-width: 1024px) {
+    .main {
+        border: 2px solid rgb(143, 132, 132, 0.4)
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 1279px) {
+    .main {
+        border: none;
+    }
+}

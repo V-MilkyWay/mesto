@@ -1,0 +1,14 @@
+.main__title {
+    margin: 0;
+    padding-top: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    width: 320px;
+    height: 46px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: normal;
+    background-color: #000000;
+    color: #FFFFFF;
+}

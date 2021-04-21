@@ -1,0 +1,14 @@
+@import url(../vendor/normalize.css);
+@import url(../fonts/fonts.css);
+@import url(../blocks/page/page.css);
+@import url(../blocks/main/main.css);
+@import url(../blocks/main/__title/main__title.css);
+@import url(../blocks/form-sender/form-sender.css);
+@import url(../blocks/form-sender/__title/form-sender__title.css);
+@import url(../blocks/form-sender/__input/form-sender__input.css);
+@import url(../blocks/form-sender/__switch/form-sender__switch.css);
+@import url(../blocks/form-sender/__switch/_type/form-sender__switch_type_btn.css);
+@import url(../blocks/form-sender/__switch/_type/form-sender__switch_type_on.css);
+@import url(../blocks/form-sender/__button/form-sender__button.css);
+@import url(../blocks/form-sender/__plus-button/form-sender__plus-button.css);
+@import url(../blocks/form-sender/__textarea/form-sender__textarea.css);

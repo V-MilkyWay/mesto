@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./styles/index.css">
+    <title>Форма заказа</title>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+        </header>
+        <main class="main">
+            <h1 class="main__title">Заказ</h1>
+            <form class="form-sender">
+                <p class="form-sender__title">Имя:</p>
+                <input class="form-sender__input" type="text" name="NAME" placeholder="Иванов И.И." value="">
+                <p class="form-sender__title">Телефон:</p>
+                <input class="form-sender__input" type="text" name="PHONE" placeholder="+7-999-123-456" value="">
+                <p class="form-sender__title">Фирма:</p>
+                <input class="form-sender__input" type="text" name="COMPANY" placeholder="Название Фирмы" value="">
+                <p class="form-sender__title">Объект:</p>
+                <input class="form-sender__input" type="text" name="OBJECT" placeholder="Колодец" value="">
+                <p class="form-sender__title">Ширина:</p>
+                <input class="form-sender__input" type="text" name="WIDTH" placeholder="1000см" value="">
+                <p class="form-sender__title">Глубина:</p>
+                <input class="form-sender__input" type="text" name="DEEP" placeholder="4321см" value="">
+                <p class="form-sender__title">Наличие дна:</p>
+                <div class="form-sender__switch_type_btn form-sender__switch_type_on"></div>
+                <p class="form-sender__title">Добавить заказ</p>
+                <button class="form-sender__plus-button"></button>
+
+                <p class="form-sender__title">Примечание:</p>
+                <textarea type="textarea" style="width: 230px; height: 230px; margin-top: -20px;" placeholder="Введите текст..." value=" " name="primechanie"></textarea>
+                <button type='submit' class="form-sender__button">Отправить</button>
+            </form>
+        </main>
+    </div>
+    <script src="./scripts/index.js"></script>
+</body>
+
+</html>
