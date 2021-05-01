@@ -1,0 +1,10 @@
+.form_type_image {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background: none;
+    box-shadow: none;
+    border-radius: 0px;
+    width: max-content;
+    color: #ffffff;
+}
