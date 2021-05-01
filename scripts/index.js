@@ -32,11 +32,11 @@ let cardElements = main.querySelector('.elements');
 let profileInfo = profile.querySelector('.profile-info');
 let popupRedact = page.querySelector('.popup_type_redact');
 let popupEdit = page.querySelector('.popup_type_edit');
+let popupImage = page.querySelector('.popup_type_image');
 let popupContainer = popupRedact.querySelector('.popup__container');
 let formElement = popupContainer.querySelector('.form');
 
 let redactButton = profileInfo.querySelector('.profile-info__edit-button');
-let editButton = profile.querySelector('.profile__add-button');
 let closeButton = popupContainer.querySelector('.popup__close-button');
 
 let jobOutput = profileInfo.querySelector('.profile-info__job');
@@ -64,8 +64,8 @@ function openPopup(namePopup) {
     namePopup.classList.add('popup_opened');
 };
 
-function closePopup() {
-    popupRedact.classList.remove('popup_opened');
+function closePopup(namePopup) {
+    namePopup.classList.remove('popup_opened');
 };
 
 function formSubmitHandler(evt) {
@@ -76,5 +76,5 @@ function formSubmitHandler(evt) {
 };
 
 redactButton.addEventListener('click', function() { openPopup(popupRedact) });
-closeButton.addEventListener('click', closePopup);
+closeButton.addEventListener('click', function() { closePopup(popupRedact) });
 formElement.addEventListener('submit', formSubmitHandler);
