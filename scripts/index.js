@@ -24,7 +24,6 @@ const initialCards = [{
     }
 ];
 
-
 let page = document.querySelector('.page');
 let main = document.querySelector('.main');
 let profile = main.querySelector('.profile');
@@ -33,34 +32,59 @@ let profileInfo = profile.querySelector('.profile-info');
 let popupRedact = page.querySelector('.popup_type_redact');
 let popupEdit = page.querySelector('.popup_type_edit');
 let popupImage = page.querySelector('.popup_type_image');
-let popupContainer = popupRedact.querySelector('.popup__container');
-let formElement = popupContainer.querySelector('.form');
+let redactContainer = popupRedact.querySelector('.popup__container');
+let editContainer = popupEdit.querySelector('.popup__container');
+let imageContainer = popupImage.querySelector('.popup__container');
+let formRedact = redactContainer.querySelector('.form');
+let formImage = imageContainer.querySelector('.form');
 
 let redactButton = profileInfo.querySelector('.profile-info__edit-button');
-let closeButton = popupContainer.querySelector('.popup__close-button');
+let editButton = profile.querySelector('.profile__add-button');
+let closeRedact = redactContainer.querySelector('.popup__close-button');
+let closeEdit = editContainer.querySelector('.popup__close-button');
+let closeImage = imageContainer.querySelector('.popup__close-button');
+
 
 let jobOutput = profileInfo.querySelector('.profile-info__job');
 let nameOutput = profileInfo.querySelector('.profile-info__name');
 
-let nameInput = formElement.querySelector('.form__input_type_name');
-let jobInput = formElement.querySelector('.form__input_type_job');
+
+//content Redact
+let nameInput = formRedact.querySelector('.form__input_type_name');
+let jobInput = formRedact.querySelector('.form__input_type_job');
+
+
+
 
 //loading "saved" cards from "server"
 initialCards.forEach(function(element) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
 
+
+
     cardElement.querySelector('.element__image').src = element.link;
     cardElement.querySelector('.element__image').alt = element.name;
     cardElement.querySelector('.element__text').textContent = element.name;
+
+    let openImage = cardElement.querySelector('.element__image');
+    openImage.addEventListener('click', function() {
+        openPopup(popupImage)
+        formImage.querySelector('.form__image').src = cardElement.querySelector('.element__image').src;
+        formImage.querySelector('.form__text').textContent = cardElement.querySelector('.element__text').textContent;
+
+    });
+
 
     cardElements.append(cardElement);
 })
 
 
+
 function openPopup(namePopup) {
     nameInput.value = nameOutput.textContent;
     jobInput.value = jobOutput.textContent;
+
     namePopup.classList.add('popup_opened');
 };
 
@@ -72,9 +96,15 @@ function formSubmitHandler(evt) {
     evt.preventDefault();
     nameOutput.textContent = nameInput.value;
     jobOutput.textContent = jobInput.value;
+
     popupRedact.classList.remove('popup_opened');
 };
 
 redactButton.addEventListener('click', function() { openPopup(popupRedact) });
-closeButton.addEventListener('click', function() { closePopup(popupRedact) });
-formElement.addEventListener('submit', formSubmitHandler);
+closeRedact.addEventListener('click', function() { closePopup(popupRedact) });
+formRedact.addEventListener('submit', formSubmitHandler);
+
+editButton.addEventListener('click', function() { openPopup(popupEdit) });
+closeEdit.addEventListener('click', function() { closePopup(popupEdit) });
+
+closeImage.addEventListener('click', function() { closePopup(popupImage) });
