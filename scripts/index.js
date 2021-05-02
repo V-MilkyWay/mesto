@@ -82,7 +82,6 @@ initialCards.forEach(function(element) {
 function openPopup(namePopup) {
     nameInput.value = nameOutput.textContent;
     jobInput.value = jobOutput.textContent;
-
     namePopup.classList.add('popup_opened');
 };
 
@@ -112,6 +111,7 @@ function saveEdit(evt) {
 
     cardElements.prepend(cardElement);
     popupEdit.classList.remove('popup_opened');
+    evt.target.reset();
 }
 
 redactButton.addEventListener('click', function() { openPopup(popupRedact) });
@@ -134,7 +134,7 @@ function openImages(cardElement) {
         formImage.querySelector('.form__text').textContent = cardElement.querySelector('.element__text').textContent;
     });
 }
-
+//delite Card
 function deliteCard(cardElement) {
     let resetButton = cardElement.querySelector('.element__button-trash')
 
