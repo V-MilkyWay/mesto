@@ -69,10 +69,10 @@ initialCards.forEach(function(element) {
 
     let openImage = cardElement.querySelector('.element__image');
     openImage.addEventListener('click', function() {
-        openPopup(popupImage)
+        openPopup(popupImage);
         formImage.querySelector('.form__image').src = cardElement.querySelector('.element__image').src;
+        formImage.querySelector('.form__image').textContent = cardElement.querySelector('.element__text').alt;
         formImage.querySelector('.form__text').textContent = cardElement.querySelector('.element__text').textContent;
-
     });
 
 
