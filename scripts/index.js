@@ -37,6 +37,7 @@ let editContainer = popupEdit.querySelector('.popup__container');
 let imageContainer = popupImage.querySelector('.popup__container');
 let formRedact = redactContainer.querySelector('.form');
 let formImage = imageContainer.querySelector('.form');
+let formEdit = editContainer.querySelector('.form');
 
 let redactButton = profileInfo.querySelector('.profile-info__edit-button');
 let editButton = profile.querySelector('.profile__add-button');
@@ -53,21 +54,22 @@ let nameOutput = profileInfo.querySelector('.profile-info__name');
 let nameInput = formRedact.querySelector('.form__input_type_name');
 let jobInput = formRedact.querySelector('.form__input_type_job');
 
-
+//content Edit for new Card
+let titleEdit = formEdit.querySelector('.form__input_type_title');
+let linkEdit = formEdit.querySelector('.form__input_type_link');
 
 
 //loading "saved" cards from "server"
 initialCards.forEach(function(element) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-
+    let openImage = cardElement.querySelector('.element__image');
 
 
     cardElement.querySelector('.element__image').src = element.link;
     cardElement.querySelector('.element__image').alt = element.name;
     cardElement.querySelector('.element__text').textContent = element.name;
 
-    let openImage = cardElement.querySelector('.element__image');
     openImage.addEventListener('click', function() {
         openPopup(popupImage);
         formImage.querySelector('.form__image').src = cardElement.querySelector('.element__image').src;
@@ -99,6 +101,19 @@ function formSubmitHandler(evt) {
 
     popupRedact.classList.remove('popup_opened');
 };
+//create nev Card and insert in DOM
+function saveEdit(evt) {
+    evt.preventDefault();
+    const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+
+    cardElement.querySelector('.element__image').src = linkEdit.value;
+    cardElement.querySelector('.element__image').alt = titleEdit.value;
+    cardElement.querySelector('.element__text').textContent = titleEdit.value;
+
+    cardElements.prepend(cardElement);
+    popupEdit.classList.remove('popup_opened');
+}
 
 redactButton.addEventListener('click', function() { openPopup(popupRedact) });
 closeRedact.addEventListener('click', function() { closePopup(popupRedact) });
@@ -108,3 +123,4 @@ editButton.addEventListener('click', function() { openPopup(popupEdit) });
 closeEdit.addEventListener('click', function() { closePopup(popupEdit) });
 
 closeImage.addEventListener('click', function() { closePopup(popupImage) });
+formEdit.addEventListener('submit', saveEdit);
