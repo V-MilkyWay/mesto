@@ -128,7 +128,8 @@ closeImage.addEventListener('click', function() { closePopup(popupImage) });
 
 //open Images
 function openImages(cardElement) {
-    let openImage = cardElement.querySelector('.element__image');
+
+    const openImage = cardElement.querySelector('.element__image');
     openImage.addEventListener('click', function() {
         openPopup(popupImage);
         formImage.querySelector('.form__image').src = cardElement.querySelector('.element__image').src;
@@ -138,7 +139,8 @@ function openImages(cardElement) {
 }
 //delite Card
 function deliteCard(cardElement) {
-    let resetButton = cardElement.querySelector('.element__button-trash')
+
+    const resetButton = cardElement.querySelector('.element__button-trash')
 
     resetButton.addEventListener('click', function() {
 
