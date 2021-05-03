@@ -73,6 +73,7 @@ initialCards.forEach(function(element) {
 
     openImages(cardElement);
     deliteCard(cardElement);
+    likeCard(cardElement);
 
 
     cardElements.append(cardElement);
@@ -104,6 +105,7 @@ function saveEdit(evt) {
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
     openImages(cardElement);
     deliteCard(cardElement);
+    likeCard(cardElement);
 
     cardElement.querySelector('.element__image').src = linkEdit.value;
     cardElement.querySelector('.element__image').alt = titleEdit.value;
@@ -143,3 +145,11 @@ function deliteCard(cardElement) {
         cardElement.remove();
     });
 };
+//like Card
+function likeCard(cardElement) {
+
+    cardElement.querySelector('.element__like').addEventListener('click', function(evt) {
+        evt.target.classList.toggle('element__like_active');
+    });
+
+}
