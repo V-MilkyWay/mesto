@@ -1,6 +1,5 @@
 .element__button-trash {
     position: absolute;
-    border: 1px solid red;
     display: flex;
     top: 18px;
     right: 15px;
