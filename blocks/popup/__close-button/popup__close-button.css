@@ -12,7 +12,7 @@
     opacity: 60%;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1024px) {
     .popup__close-button {
         margin-left: calc(100% + 40px);
         width: 40px;
@@ -20,7 +20,7 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 1279px) {
+@media screen and (min-width: 320px) and (max-width: 1023px) {
     .popup__close-button {
         margin-left: auto;
         width: 26px;

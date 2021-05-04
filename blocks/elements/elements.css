@@ -4,7 +4,7 @@
     grid-row-gap: 20px;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1024px) {
     .elements {
         width: 100%;
         max-width: 880px;
@@ -15,7 +15,7 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 1279px) {
+@media screen and (min-width: 320px) and (max-width: 1023px) {
     .elements {
         width: 282px;
         margin-top: 36px;

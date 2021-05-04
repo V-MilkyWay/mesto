@@ -16,7 +16,7 @@
     opacity: 60%;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1024px) {
     .profile-info__edit-button {
         justify-self: right;
         width: 24px;
@@ -24,7 +24,7 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 1279px) {
+@media screen and (min-width: 320px) and (max-width: 1023px) {
     .profile-info__edit-button {
         justify-self: auto;
         width: 18px;
