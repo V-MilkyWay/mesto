@@ -112,8 +112,8 @@ function saveEdit(evt) {
     cardElement.querySelector('.element__text').textContent = titleEdit.value;
 
     cardElements.prepend(cardElement);
-    popupEdit.classList.remove('popup_opened');
     evt.target.reset();
+    popupEdit.classList.remove('popup_opened');
 }
 
 redactButton.addEventListener('click', function() { openPopup(popupRedact) });
