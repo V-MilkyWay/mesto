@@ -24,48 +24,43 @@ const initialCards = [{
     }
 ];
 
-let page = document.querySelector('.page');
-let main = document.querySelector('.main');
-let profile = main.querySelector('.profile');
-let cardElements = main.querySelector('.elements');
-let profileInfo = profile.querySelector('.profile-info');
-let popupEditProfile = page.querySelector('.popup_type_redact');
-let popupAddCard = page.querySelector('.popup_type_add-card');
-let popupImage = page.querySelector('.popup_type_image');
-let redactContainer = popupEditProfile.querySelector('.popup__container');
-let editContainer = popupAddCard.querySelector('.popup__container');
-let imageContainer = popupImage.querySelector('.popup__container');
-let formEditProfile = redactContainer.querySelector('.form');
-let formImage = imageContainer.querySelector('.form');
-let formAddCard = editContainer.querySelector('.form');
+const page = document.querySelector('.page');
+const main = document.querySelector('.main');
+const profile = main.querySelector('.profile');
+const cardElements = main.querySelector('.elements');
+const profileInfo = profile.querySelector('.profile-info');
+const popupEditProfile = page.querySelector('.popup_type_redact');
+const popupAddCard = page.querySelector('.popup_type_add-card');
+const popupImage = page.querySelector('.popup_type_image');
+const redactContainer = popupEditProfile.querySelector('.popup__container');
+const editContainer = popupAddCard.querySelector('.popup__container');
+const imageContainer = popupImage.querySelector('.popup__container');
+const formEditProfile = redactContainer.querySelector('.form');
+const formImage = imageContainer.querySelector('.form');
+const formAddCard = editContainer.querySelector('.form');
 
-let openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
-let openAddCardPopupBtn = profile.querySelector('.profile__add-button');
-let closeEditProfilePopupBtn = redactContainer.querySelector('.popup__close-button');
-let closeAddCardPopupBtn = editContainer.querySelector('.popup__close-button');
-let closeImage = imageContainer.querySelector('.popup__close-button');
+const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
+const openAddCardPopupBtn = profile.querySelector('.profile__add-button');
+const closeEditProfilePopupBtn = redactContainer.querySelector('.popup__close-button');
+const closeAddCardPopupBtn = editContainer.querySelector('.popup__close-button');
+const closeImage = imageContainer.querySelector('.popup__close-button');
 
-let jobOutput = profileInfo.querySelector('.profile-info__job');
-let nameOutput = profileInfo.querySelector('.profile-info__name');
+const jobOutput = profileInfo.querySelector('.profile-info__job');
+const nameOutput = profileInfo.querySelector('.profile-info__name');
 
 //content Redact
-let nameInput = formEditProfile.querySelector('.form__input_type_name');
-let jobInput = formEditProfile.querySelector('.form__input_type_job');
+const nameInput = formEditProfile.querySelector('.form__input_type_name');
+const jobInput = formEditProfile.querySelector('.form__input_type_job');
 
 //content Edit for new Card
-let titleEdit = formAddCard.querySelector('.form__input_type_title');
-let linkEdit = formAddCard.querySelector('.form__input_type_link');
+const titleEdit = formAddCard.querySelector('.form__input_type_title');
+const linkEdit = formAddCard.querySelector('.form__input_type_link');
 
 //Cards-content
-let imagePopupCard = formImage.querySelector('.form__image');
-let titlePopupCard = formImage.querySelector('.form__text');
-
-//let imageCard = cardElement.querySelector('.element__image');
-//let titleCard = cardElement.querySelector('.element__text');
+const imagePopupCard = formImage.querySelector('.form__image');
+const titlePopupCard = formImage.querySelector('.form__text');
 
 function openPopup(popup) {
-    nameInput.value = nameOutput.textContent;
-    jobInput.value = jobOutput.textContent;
     popup.classList.add('popup_opened');
 };
 
@@ -84,9 +79,11 @@ function formEditProfileSubmitHandler(evt) {
 function createCard(imageCard, textCard) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-    cardElement.querySelector('.element__image').src = imageCard;
-    cardElement.querySelector('.element__image').alt = textCard;
-    cardElement.querySelector('.element__text').textContent = textCard;
+    const elementImage = cardElement.querySelector('.element__image');
+    const elementText = cardElement.querySelector('.element__text');
+    elementImage.src = imageCard;
+    elementImage.alt = textCard;
+    elementText.textContent = textCard;
     setOpenImageListener(cardElement);
     setDeleteCardListener(cardElement);
     setLikeCardListener(cardElement);
@@ -99,7 +96,7 @@ initialCards.forEach(function(element) {
     createCard(element.link, element.name)
 })
 
-//create nev Card and insert in DOM
+//create new Card 
 function submitAddCardForm(evt) {
     evt.preventDefault();
     createCard(linkEdit.value, titleEdit.value);
@@ -107,7 +104,12 @@ function submitAddCardForm(evt) {
     closePopup(popupAddCard);
 }
 
-openEditProfilePopupBtn.addEventListener('click', function() { openPopup(popupEditProfile) });
+openEditProfilePopupBtn.addEventListener('click', function() {
+    openPopup(popupEditProfile);
+    nameInput.value = nameOutput.textContent;
+    jobInput.value = jobOutput.textContent;
+});
+
 closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popupEditProfile) });
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
@@ -122,10 +124,11 @@ function setOpenImageListener(cardElement) {
 
     const cardImage = cardElement.querySelector('.element__image');
     cardImage.addEventListener('click', function() {
+
         openPopup(popupImage);
+
         imagePopupCard.src = cardElement.querySelector('.element__image').src;
         imagePopupCard.textContent = cardElement.querySelector('.element__text').alt;
-
         titlePopupCard.textContent = cardElement.querySelector('.element__text').textContent;
     });
 }
