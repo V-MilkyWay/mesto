@@ -63,22 +63,6 @@ let titlePopupCard = formImage.querySelector('.form__text');
 //let imageCard = cardElement.querySelector('.element__image');
 //let titleCard = cardElement.querySelector('.element__text');
 
-//loading "saved" cards from "server"
-initialCards.forEach(function(element) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-
-    cardElement.querySelector('.element__image').src = element.link;
-    cardElement.querySelector('.element__image').alt = element.name;
-    cardElement.querySelector('.element__text').textContent = element.name;
-
-    setOpenImageListener(cardElement);
-    setDeleteCardListener(cardElement);
-    setLikeCardListener(cardElement);
-
-    cardElements.append(cardElement);
-})
-
 function openPopup(popup) {
     nameInput.value = nameOutput.textContent;
     jobInput.value = jobOutput.textContent;
@@ -96,20 +80,29 @@ function formEditProfileSubmitHandler(evt) {
     closePopup(popupEditProfile);
 };
 
-//create nev Card and insert in DOM
-function submitAddCardForm(evt) {
-    evt.preventDefault();
+//create Card
+function createCard(imageCard, textCard) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+    cardElement.querySelector('.element__image').src = imageCard;
+    cardElement.querySelector('.element__image').alt = textCard;
+    cardElement.querySelector('.element__text').textContent = textCard;
     setOpenImageListener(cardElement);
     setDeleteCardListener(cardElement);
     setLikeCardListener(cardElement);
-
-    cardElement.querySelector('.element__image').src = linkEdit.value;
-    cardElement.querySelector('.element__image').alt = titleEdit.value;
-    cardElement.querySelector('.element__text').textContent = titleEdit.value;
-
     cardElements.prepend(cardElement);
+};
+
+//loading "saved" cards from "server"
+
+initialCards.forEach(function(element) {
+    createCard(element.link, element.name)
+})
+
+//create nev Card and insert in DOM
+function submitAddCardForm(evt) {
+    evt.preventDefault();
+    createCard(linkEdit.value, titleEdit.value);
     evt.target.reset();
     closePopup(popupAddCard);
 }
