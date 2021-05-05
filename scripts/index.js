@@ -48,6 +48,11 @@ const closeImage = imageContainer.querySelector('.popup__close-button');
 const jobOutput = profileInfo.querySelector('.profile-info__job');
 const nameOutput = profileInfo.querySelector('.profile-info__name');
 
+const cardTemplate = document.querySelector('#card-template').content;
+const cardElement = cardTemplate.querySelector('.element');
+const cardImage = cardElement.querySelector('.element__image');
+const elementText = cardElement.querySelector('.element__text');
+
 //content Redact
 const nameInput = formEditProfile.querySelector('.form__input_type_name');
 const jobInput = formEditProfile.querySelector('.form__input_type_job');
@@ -77,23 +82,21 @@ function formEditProfileSubmitHandler(evt) {
 
 //create Card
 function createCard(imageCard, textCard) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-    const elementImage = cardElement.querySelector('.element__image');
-    const elementText = cardElement.querySelector('.element__text');
-    elementImage.src = imageCard;
-    elementImage.alt = textCard;
+    cardImage.src = imageCard;
+    cardImage.alt = textCard;
     elementText.textContent = textCard;
-    setOpenImageListener(cardElement);
-    setDeleteCardListener(cardElement);
-    setLikeCardListener(cardElement);
-    cardElements.prepend(cardElement);
+
+    const newCardElement = cardElement.cloneNode(true);
+    setOpenImageListener(newCardElement);
+    setDeleteCardListener(newCardElement);
+    setLikeCardListener(newCardElement);
+    cardElements.prepend(newCardElement);
 };
 
 //loading "saved" cards from "server"
 
 initialCards.forEach(function(element) {
-    createCard(element.link, element.name)
+    createCard(element.link, element.name);
 })
 
 //create new Card 
@@ -123,13 +126,14 @@ closeImage.addEventListener('click', function() { closePopup(popupImage) });
 function setOpenImageListener(cardElement) {
 
     const cardImage = cardElement.querySelector('.element__image');
-    cardImage.addEventListener('click', function() {
+    const cardTitle = cardElement.querySelector('.element__text');
 
+    cardImage.addEventListener('click', function() {
         openPopup(popupImage);
 
-        imagePopupCard.src = cardElement.querySelector('.element__image').src;
-        imagePopupCard.textContent = cardElement.querySelector('.element__text').alt;
-        titlePopupCard.textContent = cardElement.querySelector('.element__text').textContent;
+        imagePopupCard.src = cardImage.src;
+        imagePopupCard.textContent = cardTitle.alt;
+        titlePopupCard.textContent = cardTitle.textContent;
     });
 }
 
