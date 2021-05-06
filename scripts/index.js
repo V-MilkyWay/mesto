@@ -88,7 +88,6 @@ function createCard(imageCard, textCard) {
     cardImage.alt = textCard;
     elementText.textContent = textCard;
 
-
     setOpenImageListener(newCardElement);
     setDeleteCardListener(newCardElement);
     setLikeCardListener(newCardElement);
