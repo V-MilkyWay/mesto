@@ -50,8 +50,6 @@ const nameOutput = profileInfo.querySelector('.profile-info__name');
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardElement = cardTemplate.querySelector('.element');
-const cardImage = cardElement.querySelector('.element__image');
-const elementText = cardElement.querySelector('.element__text');
 
 //content Redact
 const nameInput = formEditProfile.querySelector('.form__input_type_name');
@@ -82,11 +80,15 @@ function formEditProfileSubmitHandler(evt) {
 
 //create Card
 function createCard(imageCard, textCard) {
+    const newCardElement = cardElement.cloneNode(true);
+    const cardImage = newCardElement.querySelector('.element__image');
+    const elementText = newCardElement.querySelector('.element__text');
+
     cardImage.src = imageCard;
     cardImage.alt = textCard;
     elementText.textContent = textCard;
 
-    const newCardElement = cardElement.cloneNode(true);
+
     setOpenImageListener(newCardElement);
     setDeleteCardListener(newCardElement);
     setLikeCardListener(newCardElement);
