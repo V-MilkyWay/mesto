@@ -90,7 +90,12 @@ function createCard(imageCard, textCard) {
     setOpenImageListener(newCardElement);
     setDeleteCardListener(newCardElement);
     setLikeCardListener(newCardElement);
-    cardElements.prepend(newCardElement);
+    addCard(newCardElement);
+};
+
+//add Card
+function addCard(nameCrardElement) {
+    cardElements.prepend(nameCrardElement);
 };
 
 //loading "saved" cards from "server"
