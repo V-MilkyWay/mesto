@@ -103,8 +103,12 @@ initialCards.forEach(function(element) {
 function submitAddCardForm(evt) {
     evt.preventDefault();
     createCard(linkEdit.value, titleEdit.value);
-    evt.target.reset();
+    resetForm(formAddCard);
     closePopup(popupAddCard);
+}
+
+function resetForm(nameForm) {
+    nameForm.reset();
 }
 
 openEditProfilePopupBtn.addEventListener('click', function() {
@@ -117,7 +121,10 @@ closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popup
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
 openAddCardPopupBtn.addEventListener('click', function() { openPopup(popupAddCard) });
-closeAddCardPopupBtn.addEventListener('click', function() { closePopup(popupAddCard) });
+closeAddCardPopupBtn.addEventListener('click', function() {
+    closePopup(popupAddCard);
+    resetForm(formAddCard);
+});
 formAddCard.addEventListener('submit', submitAddCardForm);
 
 closeImage.addEventListener('click', function() { closePopup(popupImage) });
