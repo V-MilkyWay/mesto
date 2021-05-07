@@ -91,24 +91,27 @@ function createCard(imageCard, textCard) {
     setOpenImageListener(newCardElement);
     setDeleteCardListener(newCardElement);
     setLikeCardListener(newCardElement);
-    addCard(newCardElement);
+
+    return newCardElement;
 };
 
 //add Card
-function addCard(nameCrardElement) {
-    cardElements.prepend(nameCrardElement);
+function addCard(card) {
+    cardElements.prepend(card);
 };
 
 //loading "saved" cards from "server"
 
 initialCards.forEach(function(element) {
-    createCard(element.link, element.name);
+    const newCard = createCard(element.link, element.name);
+    addCard(newCard);
 })
 
 //create new Card 
 function submitAddCardForm(evt) {
     evt.preventDefault();
-    createCard(linkEdit.value, titleEdit.value);
+    const newCard = createCard(linkEdit.value, titleEdit.value);
+    addCard(newCard);
     resetForm(formAddCard);
     closePopup(popupAddCard);
 }
