@@ -172,3 +172,4 @@ function setLikeCardListener(cardElement) {
     });
 
 }
+var qwe;
