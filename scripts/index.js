@@ -37,7 +37,7 @@ const redactContainer = popupEditProfile.querySelector('.popup__container');
 const editContainer = popupAddCard.querySelector('.popup__container');
 const imageContainer = popupImage.querySelector('.popup__container');
 const formEditProfile = redactContainer.querySelector('.form');
-const formImage = imageContainer.querySelector('.form_type_image');
+const formImage = imageContainer.querySelector('.form-image');
 const formAddCard = editContainer.querySelector('.form');
 
 const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
@@ -61,8 +61,8 @@ const titleEdit = formAddCard.querySelector('.form__input_type_title');
 const linkEdit = formAddCard.querySelector('.form__input_type_link');
 
 //Cards-content
-const imagePopupCard = formImage.querySelector('.form__image');
-const titlePopupCard = formImage.querySelector('.form__text');
+const imagePopupCard = formImage.querySelector('.form-image__image');
+const titlePopupCard = formImage.querySelector('.form-image__text');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
