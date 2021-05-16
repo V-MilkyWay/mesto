@@ -130,16 +130,6 @@ openEditProfilePopupBtn.addEventListener('click', function() {
 closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popupEditProfile) });
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
-// close all popups - Esc
-popups.forEach((popup) => {
-    page.addEventListener('keydown', function(evt) {
-        if (evt.key === 'Escape') {
-            closePopup(popup);
-        }
-    });
-});
-console.log(popups)
-
 openAddCardPopupBtn.addEventListener('click', function() { openPopup(popupAddCard) });
 closeAddCardPopupBtn.addEventListener('click', function() {
     closePopup(popupAddCard);
@@ -183,3 +173,13 @@ function setLikeCardListener(cardElement) {
     });
 
 }
+
+// close all popups - Esc
+popups.forEach((popup) => {
+    document.addEventListener('keydown', function(evt) {
+        if (evt.key === 'Escape') {
+            closePopup(popup);
+            resetForm(formAddCard);
+        }
+    });
+});
