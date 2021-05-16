@@ -29,6 +29,7 @@ const main = document.querySelector('.main');
 const profile = main.querySelector('.profile');
 const cardElements = main.querySelector('.elements');
 const profileInfo = profile.querySelector('.profile-info');
+const popups = page.querySelectorAll('.popup');
 const popupEditProfile = page.querySelector('.popup_type_redact');
 const popupAddCard = page.querySelector('.popup_type_add-card');
 const popupImage = page.querySelector('.popup_type_image');
@@ -128,6 +129,16 @@ openEditProfilePopupBtn.addEventListener('click', function() {
 
 closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popupEditProfile) });
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
+
+// close all popups - Esc
+popups.forEach((popup) => {
+    page.addEventListener('keydown', function(evt) {
+        if (evt.key === 'Escape') {
+            closePopup(popup);
+        }
+    });
+});
+console.log(popups)
 
 openAddCardPopupBtn.addEventListener('click', function() { openPopup(popupAddCard) });
 closeAddCardPopupBtn.addEventListener('click', function() {
