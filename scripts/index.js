@@ -183,3 +183,14 @@ popups.forEach((popup) => {
         }
     });
 });
+
+// close all popups - overlay
+popups.forEach((popup) => {
+    popup.addEventListener('click', function(evt) {
+        console.log(evt.target)
+        if (evt.target === popup) {
+            closePopup(popup);
+            resetForm(formAddCard);
+        };
+    });
+});
