@@ -36,7 +36,7 @@ const redactContainer = popupEditProfile.querySelector('.popup__container');
 const editContainer = popupAddCard.querySelector('.popup__container');
 const imageContainer = popupImage.querySelector('.popup__container');
 const formEditProfile = redactContainer.querySelector('.form');
-const formImage = imageContainer.querySelector('.form');
+const formImage = imageContainer.querySelector('.form_type_image');
 const formAddCard = editContainer.querySelector('.form');
 
 const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');

@@ -5,13 +5,14 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    background: #000000;
     border-radius: 2px;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
+    color: rgba(0, 0, 0, 0.15);
+    background: #000000;
     color: #FFFFFF;
 }
 

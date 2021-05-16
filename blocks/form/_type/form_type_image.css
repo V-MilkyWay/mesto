@@ -1,5 +1,6 @@
 .form_type_image {
     display: flex;
+    margin: 0;
     flex-flow: column;
     align-items: center;
     background: none;
@@ -7,4 +8,16 @@
     border-radius: 0px;
     width: max-content;
     color: #ffffff;
+}
+
+@media screen and (min-width: 1024px) {
+    .form_type_image {
+        width: 430px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+    .form_type_image {
+        width: 282px;
+    }
 }

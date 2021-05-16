@@ -1,5 +1,6 @@
 .form__input-error {
     display: flex;
+    margin: 0;
     color: #FF0000;
     font-style: normal;
     font-weight: normal;
