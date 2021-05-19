@@ -40,20 +40,12 @@ const titlePopupCard = formImage.querySelector('.form-image__text');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    document.addEventListener('keydown', function(evt) {
-        if (evt.key === 'Escape') {
-            closePopup(popup);
-        }
-    });
+    document.addEventListener('keydown', function(evt) { closeByEsc(evt, popup) });
 };
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', function(evt) {
-        if (evt.key === 'Escape') {
-            closePopup(popup);
-        }
-    });
+    document.removeEventListener('keydown', function(evt) { closeByEsc(evt, popup) });
 };
 
 function formEditProfileSubmitHandler(evt) {
@@ -169,3 +161,9 @@ popups.forEach((popup) => {
         };
     });
 });
+
+function closeByEsc(evt, popup) {
+    if (evt.key === 'Escape') {
+        closePopup(popup);
+    }
+};
