@@ -40,12 +40,12 @@ const titlePopupCard = formImage.querySelector('.form-image__text');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    document.addEventListener('keydown', function(evt) { closeByEsc(evt, popup) });
+    document.addEventListener('keydown', closeByEsc(popup));
 };
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', function(evt) { closeByEsc(evt, popup) });
+    document.removeEventListener('keydown', closeByEsc(popup));
 };
 
 function formEditProfileSubmitHandler(evt) {
@@ -150,7 +150,6 @@ function setLikeCardListener(cardElement) {
     cardElement.querySelector('.element__like').addEventListener('click', function(evt) {
         evt.target.classList.toggle('element__like_active');
     });
-
 }
 
 // close all popups - overlay
@@ -162,8 +161,8 @@ popups.forEach((popup) => {
     });
 });
 
-function closeByEsc(evt, popup) {
+const closeByEsc = (popup) => (evt) => {
     if (evt.key === 'Escape') {
         closePopup(popup);
     }
-};
+}
