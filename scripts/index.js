@@ -120,8 +120,8 @@ const closeByEsc = (popup) => (evt) => {
 }
 
 //validations
-const cardEdit = new FormValidator(selectorsAll, formEditProfile);
+const cardEditProfile = new FormValidator(selectorsAll, formEditProfile);
 const cardAdd = new FormValidator(selectorsAll, formAddCard);
 
-cardEdit.enableValidation();
+cardEditProfile.enableValidation();
 cardAdd.enableValidation();
