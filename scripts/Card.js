@@ -1,3 +1,4 @@
+const page = document.querySelector('.page');
 const popupImage = page.querySelector('.popup_type_image');
 const imageContainer = popupImage.querySelector('.popup__container');
 const formImage = imageContainer.querySelector('.form-image');
@@ -5,8 +6,7 @@ const imagePopupCard = formImage.querySelector('.form-image__image');
 const titlePopupCard = formImage.querySelector('.form-image__text');
 const closeImageBtn = imageContainer.querySelector('.popup__close-button');
 
-
-class Card {
+export class Card {
     constructor(title, description, image) {
         this._title = title;
         this._description = description;
@@ -29,11 +29,20 @@ class Card {
         imagePopupCard.textContent = this._description;
         titlePopupCard.textContent = this._title;
         popupImage.classList.add('popup_opened');
-        document.addEventListener('keydown', closeByEsc(popupImage));
+        document.addEventListener('keydown', (evt) => {
+            if (evt.key === 'Escape') {
+                popupImage.classList.remove('popup_opened');
+            }
+        });
+
     }
     _handleClosePopup() {
         popupImage.classList.remove('popup_opened');
-        document.removeEventListener('keydown', closeByEsc(popupImage));
+        document.removeEventListener('keydown', (evt) => {
+            if (evt.key === 'Escape') {
+                popupImage.classList.remove('popup_opened');
+            }
+        });
     }
 
     _setLikeCardListener(evt) {
@@ -77,12 +86,3 @@ class Card {
 
     }
 }
-
-
-//initial card from "server"
-initialCards.forEach((initialCards) => {
-    const card = new Card(initialCards.name, initialCards.name, initialCards.link);
-    const cardElement = card.generateCard();
-
-    addCard(cardElement);
-});

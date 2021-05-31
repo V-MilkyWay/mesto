@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
     constructor(selectors, elements) {
         this._selectors = selectors;
         this._elements = elements;
@@ -72,16 +72,3 @@ class FormValidator {
         });
     }
 }
-const selectorsAll = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__save-button',
-    inactiveButtonClass: 'form__save-button_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_type_active'
-};
-const cardEdit = new FormValidator(selectorsAll, formEditProfile);
-const cardAdd = new FormValidator(selectorsAll, formAddCard);
-
-cardEdit.enableValidation();
-cardAdd.enableValidation();

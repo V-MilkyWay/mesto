@@ -1,3 +1,16 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { initialCards } from './initial-сards.js';
+
+const selectorsAll = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__save-button',
+    inactiveButtonClass: 'form__save-button_inactive',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_type_active'
+};
+
 const page = document.querySelector('.page');
 const main = document.querySelector('.main');
 const profile = main.querySelector('.profile');
@@ -16,11 +29,8 @@ const openAddCardPopupBtn = profile.querySelector('.profile__add-button');
 const closeEditProfilePopupBtn = redactContainer.querySelector('.popup__close-button');
 const closeAddCardPopupBtn = editContainer.querySelector('.popup__close-button');
 
-
 const jobOutput = profileInfo.querySelector('.profile-info__job');
 const nameOutput = profileInfo.querySelector('.profile-info__name');
-
-
 
 //content Redact
 const nameInput = formEditProfile.querySelector('.form__input_type_name');
@@ -47,6 +57,14 @@ function formEditProfileSubmitHandler(evt) {
     jobOutput.textContent = jobInput.value;
     closePopup(popupEditProfile);
 };
+
+//initial card from "server"
+initialCards.forEach((initialCards) => {
+    const card = new Card(initialCards.name, initialCards.name, initialCards.link);
+    const cardElement = card.generateCard();
+
+    addCard(cardElement);
+});
 
 //add Card
 function addCard(card) {
@@ -100,3 +118,10 @@ const closeByEsc = (popup) => (evt) => {
         closePopup(popup);
     }
 }
+
+//validations
+const cardEdit = new FormValidator(selectorsAll, formEditProfile);
+const cardAdd = new FormValidator(selectorsAll, formAddCard);
+
+cardEdit.enableValidation();
+cardAdd.enableValidation();
