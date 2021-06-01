@@ -45,10 +45,20 @@ const jobInput = formEditProfile.querySelector('.form__input_type_job');
 const titleEdit = formAddCard.querySelector('.form__input_type_title');
 const linkEdit = formAddCard.querySelector('.form__input_type_link');
 
+//validations
+const cardEditProfile = new FormValidator(selectorsAll, formEditProfile);
+const cardAdd = new FormValidator(selectorsAll, formAddCard);
+
+cardEditProfile.enableValidation();
+cardAdd.enableValidation();
+cardEditProfile.toggleButtonState();
+cardAdd.toggleButtonState();
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEsc(popup));
+    cardEditProfile.toggleButtonState();
+    cardAdd.toggleButtonState();
 };
 
 function closePopup(popup) {
@@ -83,6 +93,8 @@ function submitAddCardForm(evt) {
     addCard(cardElement);
     resetForm(formAddCard);
     closePopup(popupAddCard);
+    cardEditProfile.toggleButtonState();
+    cardAdd.toggleButtonState();
 }
 
 function resetForm(nameForm) {
@@ -132,13 +144,5 @@ const closeByEsc = (popup) => (evt) => {
         closePopup(popup);
     }
 }
-
-//validations
-const cardEditProfile = new FormValidator(selectorsAll, formEditProfile);
-const cardAdd = new FormValidator(selectorsAll, formAddCard);
-
-cardEditProfile.enableValidation();
-cardAdd.enableValidation();
-
 
 closeImageBtn.addEventListener('click', function() { closePopup(popupImage) });

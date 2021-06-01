@@ -29,7 +29,7 @@ export class FormValidator {
         this._inputList = Array.from(this._element.querySelectorAll(this._selectors.inputSelector));
         this._buttonElement = this._element.querySelector(this._selectors.submitButtonSelector);
 
-        this._toggleButtonState();
+        this.toggleButtonState();
 
         this._inputList.forEach((inputElement) => {
 
@@ -37,7 +37,7 @@ export class FormValidator {
 
                 this._checkInputValidity(inputElement);
 
-                this._toggleButtonState();
+                this.toggleButtonState();
             });
         });
     };
@@ -49,7 +49,7 @@ export class FormValidator {
         });
     }
 
-    _toggleButtonState() {
+    toggleButtonState() {
 
         if (this._hasInvalidInput()) {
             this._buttonElement.classList.add(this._selectors.inactiveButtonClass);
