@@ -24,6 +24,11 @@ const editContainer = popupAddCard.querySelector('.popup__container');
 const formEditProfile = redactContainer.querySelector('.form');
 const formAddCard = editContainer.querySelector('.form');
 
+const popupImage = page.querySelector('.popup_type_image');
+const imageContainer = popupImage.querySelector('.popup__container');
+const closeImageBtn = imageContainer.querySelector('.popup__close-button');
+
+
 const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
 const openAddCardPopupBtn = profile.querySelector('.profile__add-button');
 const closeEditProfilePopupBtn = redactContainer.querySelector('.popup__close-button');
@@ -60,9 +65,9 @@ function formEditProfileSubmitHandler(evt) {
 
 //initial card from "server"
 initialCards.forEach((initialCards) => {
-    const card = new Card(initialCards.name, initialCards.name, initialCards.link);
+    const card = new Card(initialCards.name, initialCards.link);
     const cardElement = card.generateCard();
-
+    setOpenImageListener(cardElement)
     addCard(cardElement);
 });
 
@@ -73,7 +78,7 @@ function addCard(card) {
 
 function submitAddCardForm(evt) {
     evt.preventDefault();
-    const newCard = new Card(titleEdit.value, titleEdit.value, linkEdit.value);
+    const newCard = new Card(titleEdit.value, linkEdit.value);
     const cardElement = newCard.generateCard();
     addCard(cardElement);
     resetForm(formAddCard);
@@ -102,7 +107,16 @@ closeAddCardPopupBtn.addEventListener('click', function() {
     closePopup(popupAddCard);
     resetForm(formAddCard);
 });
+
 formAddCard.addEventListener('submit', submitAddCardForm);
+
+//open Images
+function setOpenImageListener(cardElement) {
+    const cardImage = cardElement.querySelector('.element__image');
+    cardImage.addEventListener('click', function() {
+        openPopup(popupImage);
+    });
+}
 
 // close all popups - overlay
 popups.forEach((popup) => {
@@ -125,3 +139,6 @@ const cardAdd = new FormValidator(selectorsAll, formAddCard);
 
 cardEditProfile.enableValidation();
 cardAdd.enableValidation();
+
+
+closeImageBtn.addEventListener('click', function() { closePopup(popupImage) });
