@@ -102,9 +102,9 @@ function resetForm(nameForm) {
 }
 
 openEditProfilePopupBtn.addEventListener('click', function() {
-    openPopup(popupEditProfile);
     nameInput.value = nameOutput.textContent;
     jobInput.value = jobOutput.textContent;
+    openPopup(popupEditProfile);
 });
 
 closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popupEditProfile) });
