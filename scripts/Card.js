@@ -9,13 +9,13 @@ export class Card {
     constructor(title, image) {
         this._title = title;
         this._image = image;
-        this._element = '#card-template';
+        this._selector = '#card-template';
     }
 
 
     _getTemplate() {
         const cardElement = document
-            .querySelector(this._element)
+            .querySelector(this._selector)
             .content
             .querySelector('.element')
             .cloneNode(true);
