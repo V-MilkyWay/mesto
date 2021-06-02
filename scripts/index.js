@@ -56,14 +56,12 @@ cardAdd.toggleButtonState();
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEsc(popup));
-    cardEditProfile.toggleButtonState();
-    cardAdd.toggleButtonState();
+    document.addEventListener('keydown', closeByEsc);
 };
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeByEsc(popup));
+    document.removeEventListener('keydown', closeByEsc);
 };
 
 function formEditProfileSubmitHandler(evt) {
@@ -104,6 +102,7 @@ function resetForm(nameForm) {
 openEditProfilePopupBtn.addEventListener('click', function() {
     nameInput.value = nameOutput.textContent;
     jobInput.value = jobOutput.textContent;
+    cardEditProfile.toggleButtonState();
     openPopup(popupEditProfile);
 });
 
@@ -111,6 +110,7 @@ closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popup
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
 openAddCardPopupBtn.addEventListener('click', function() {
+    cardAdd.toggleButtonState();
     openPopup(popupAddCard);
     resetForm(formAddCard);
 });
@@ -139,8 +139,9 @@ popups.forEach((popup) => {
     });
 });
 
-const closeByEsc = (popup) => (evt) => {
+const closeByEsc = (evt) => {
     if (evt.key === 'Escape') {
+        const popup = document.querySelector('.popup_opened');
         closePopup(popup);
     }
 }
