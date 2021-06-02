@@ -6,16 +6,16 @@ const imagePopupCard = formImage.querySelector('.form-image__image');
 const titlePopupCard = formImage.querySelector('.form-image__text');
 
 export class Card {
-    constructor(title, image) {
-        this._title = title;
-        this._image = image;
-        this._selector = '#card-template';
+    constructor({ name, link }, cardSelector) {
+        this._name = name;
+        this._link = link;
+        this._cardSelector = cardSelector;
     }
 
 
     _getTemplate() {
         const cardElement = document
-            .querySelector(this._selector)
+            .querySelector(this._cardSelector)
             .content
             .querySelector('.element')
             .cloneNode(true);
@@ -24,9 +24,9 @@ export class Card {
     }
 
     _handleOpenPopup() {
-        imagePopupCard.src = this._image;
-        imagePopupCard.alt = this._title;
-        titlePopupCard.textContent = this._title;
+        imagePopupCard.src = this._link;
+        imagePopupCard.alt = this._name;
+        titlePopupCard.textContent = this._name;
     }
 
     _setLikeCardListener(evt) {
@@ -45,9 +45,9 @@ export class Card {
         this._element = this._getTemplate();
         this._setEventListeners();
 
-        this._element.querySelector('.element__image').src = this._image;
-        this._element.querySelector('.element__text').textContent = this._title;
-        this._element.querySelector('.element__image').alt = this._title;
+        this._element.querySelector('.element__image').src = this._link;
+        this._element.querySelector('.element__text').textContent = this._name;
+        this._element.querySelector('.element__image').alt = this._name;
 
         return this._element;
     }

@@ -73,7 +73,7 @@ function formEditProfileSubmitHandler(evt) {
 
 //initial card from "server"
 initialCards.forEach((initialCards) => {
-    const card = new Card(initialCards.name, initialCards.link);
+    const card = new Card(initialCards, '#card-template');
     const cardElement = card.generateCard();
     setOpenImageListener(cardElement)
     addCard(cardElement);
@@ -86,7 +86,11 @@ function addCard(card) {
 
 function submitAddCardForm(evt) {
     evt.preventDefault();
-    const newCard = new Card(titleEdit.value, linkEdit.value);
+    const data = {
+        name: titleEdit.value,
+        link: linkEdit.value
+    }
+    const newCard = new Card(data, '#card-template');
     const cardElement = newCard.generateCard();
     addCard(cardElement);
     resetForm(formAddCard);
