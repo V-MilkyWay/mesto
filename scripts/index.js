@@ -1,6 +1,7 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initial-сards.js';
+import { Section } from './Section.js';
 
 const selectorsAll = {
     formSelector: '.form',
@@ -14,7 +15,6 @@ const selectorsAll = {
 const page = document.querySelector('.page');
 const main = document.querySelector('.main');
 const profile = main.querySelector('.profile');
-const cardElements = main.querySelector('.elements');
 const profileInfo = profile.querySelector('.profile-info');
 const popups = page.querySelectorAll('.popup');
 const popupEditProfile = page.querySelector('.popup_type_redact');
@@ -70,29 +70,38 @@ function formEditProfileSubmitHandler(evt) {
     jobOutput.textContent = jobInput.value;
     closePopup(popupEditProfile);
 };
-
 //initial card from "server"
-initialCards.forEach((initialCards) => {
-    const card = new Card(initialCards, '#card-template');
-    const cardElement = card.generateCard();
-    setOpenImageListener(cardElement)
-    addCard(cardElement);
-});
+const addSection = new Section({
+        items: initialCards,
+        renderer: (item) => {
+            const card = new Card(item, '#card-template');
+            const cardElement = card.generateCard();
+            setOpenImageListener(cardElement);
+            addSection.addItem(cardElement);
+        }
+    },
+    '.elements'
+);
+addSection.renderItems();
 
-//add Card
-function addCard(card) {
-    cardElements.prepend(card);
-};
-
+//initial new card
 function submitAddCardForm(evt) {
     evt.preventDefault();
-    const data = {
+    const data = [{
         name: titleEdit.value,
         link: linkEdit.value
-    }
-    const newCard = new Card(data, '#card-template');
-    const cardElement = newCard.generateCard();
-    addCard(cardElement);
+    }]
+    const newSection = new Section({
+            items: data,
+            renderer: (item) => {
+                const newCard = new Card(item, '#card-template');
+                const cardElement = newCard.generateCard();
+                newSection.addItem(cardElement);
+            }
+        },
+        '.elements'
+    );
+    newSection.renderItems();
     resetForm(formAddCard);
     closePopup(popupAddCard);
     cardEditProfile.toggleButtonState();
