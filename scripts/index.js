@@ -2,6 +2,7 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initial-сards.js';
 import { Section } from './Section.js';
+import { Popup } from './Popup.js';
 
 const selectorsAll = {
     formSelector: '.form',
@@ -17,10 +18,10 @@ const main = document.querySelector('.main');
 const profile = main.querySelector('.profile');
 const profileInfo = profile.querySelector('.profile-info');
 const popups = page.querySelectorAll('.popup');
-const popupEditProfile = page.querySelector('.popup_type_redact');
-const popupAddCard = page.querySelector('.popup_type_add-card');
-const redactContainer = popupEditProfile.querySelector('.popup__container');
-const editContainer = popupAddCard.querySelector('.popup__container');
+const popupEditProf = page.querySelector('.popup_type_redact');
+const popupAddCards = page.querySelector('.popup_type_add-card');
+const redactContainer = popupEditProf.querySelector('.popup__container');
+const editContainer = popupAddCards.querySelector('.popup__container');
 const formEditProfile = redactContainer.querySelector('.form');
 const formAddCard = editContainer.querySelector('.form');
 
@@ -31,8 +32,6 @@ const closeImageBtn = imageContainer.querySelector('.popup__close-button');
 
 const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
 const openAddCardPopupBtn = profile.querySelector('.profile__add-button');
-const closeEditProfilePopupBtn = redactContainer.querySelector('.popup__close-button');
-const closeAddCardPopupBtn = editContainer.querySelector('.popup__close-button');
 
 const jobOutput = profileInfo.querySelector('.profile-info__job');
 const nameOutput = profileInfo.querySelector('.profile-info__name');
@@ -54,21 +53,14 @@ cardAdd.enableValidation();
 cardEditProfile.toggleButtonState();
 cardAdd.toggleButtonState();
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEsc);
-};
-
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeByEsc);
-};
+const popupEditProfile = new Popup('.popup_type_redact');
+const popupAddCard = new Popup('.popup_type_add-card');
 
 function formEditProfileSubmitHandler(evt) {
     evt.preventDefault();
     nameOutput.textContent = nameInput.value;
     jobOutput.textContent = jobInput.value;
-    closePopup(popupEditProfile);
+    popupEditProfile.closePopup();
 };
 //initial card from "server"
 const addSection = new Section({
@@ -103,7 +95,7 @@ function submitAddCardForm(evt) {
     );
     newSection.renderItems();
     resetForm(formAddCard);
-    closePopup(popupAddCard);
+    popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
 }
@@ -116,22 +108,18 @@ openEditProfilePopupBtn.addEventListener('click', function() {
     nameInput.value = nameOutput.textContent;
     jobInput.value = jobOutput.textContent;
     cardEditProfile.toggleButtonState();
-    openPopup(popupEditProfile);
+    popupEditProfile.openPopup();
 });
-
-closeEditProfilePopupBtn.addEventListener('click', function() { closePopup(popupEditProfile) });
+popupEditProfile.setEventListeners();
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
 openAddCardPopupBtn.addEventListener('click', function() {
     cardAdd.toggleButtonState();
-    openPopup(popupAddCard);
+    popupAddCard.openPopup();
     resetForm(formAddCard);
 });
 
-closeAddCardPopupBtn.addEventListener('click', function() {
-    closePopup(popupAddCard);
-    resetForm(formAddCard);
-});
+popupAddCard.setEventListeners();
 
 formAddCard.addEventListener('submit', submitAddCardForm);
 
@@ -147,16 +135,10 @@ function setOpenImageListener(cardElement) {
 popups.forEach((popup) => {
     popup.addEventListener('click', function(evt) {
         if (evt.target === popup) {
-            closePopup(popup);
+            popup.classList.remove('popup_opened');
         };
     });
 });
 
-const closeByEsc = (evt) => {
-    if (evt.key === 'Escape') {
-        const popup = document.querySelector('.popup_opened');
-        closePopup(popup);
-    }
-}
 
 closeImageBtn.addEventListener('click', function() { closePopup(popupImage) });
