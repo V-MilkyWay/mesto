@@ -5,6 +5,7 @@ import { Section } from './Section.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
 import { UserInfo } from './UserInfo.js';
+
 const selectorsUserInfo = {
     name: '.profile-info__name',
     job: '.profile-info__job'
@@ -56,9 +57,8 @@ const userInfo = new UserInfo(selectorsUserInfo);
 const addSection = new Section({
         items: initialCards,
         renderer: (item) => {
-            const card = new Card(item, '#card-template');
+            const card = new Card(item, '#card-template', handleCardClick);
             const cardElement = card.generateCard();
-            handleCardClick(cardElement);
             addSection.addItem(cardElement);
         }
     },
@@ -76,9 +76,8 @@ function submitAddCardForm(evt) {
     const newSection = new Section({
             items: data,
             renderer: (item) => {
-                const newCard = new Card(item, '#card-template');
+                const newCard = new Card(item, '#card-template', handleCardClick);
                 const cardElement = newCard.generateCard();
-                handleCardClick(cardElement);
                 newSection.addItem(cardElement);
             }
         },
@@ -113,9 +112,7 @@ popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();
 popupImage.setEventListeners();
 
-//open Images
-function handleCardClick(cardElement) {
-    cardElement.querySelector('.element__image').addEventListener('click', function() {
-        popupImage.openPopup(cardElement);
-    });
+//open image
+function handleCardClick(elementImage) {
+    popupImage.openPopup(elementImage);
 }

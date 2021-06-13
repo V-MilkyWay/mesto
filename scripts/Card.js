@@ -1,8 +1,9 @@
 export class Card {
-    constructor({ name, link }, cardSelector) {
+    constructor({ name, link }, cardSelector, renderer) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
+        this._renderer = renderer;
     }
     _getTemplate() {
         const cardElement = document
@@ -10,7 +11,6 @@ export class Card {
             .content
             .querySelector('.element')
             .cloneNode(true);
-
         return cardElement;
     }
     _setLikeCardListener(evt) {
@@ -42,6 +42,9 @@ export class Card {
 
             this._setDeleteCardListener();
         });
+        this._element.querySelector('.element__image').addEventListener('click', () => {
 
+            this._renderer(this._element);
+        });
     }
 }
