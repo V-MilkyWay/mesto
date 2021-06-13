@@ -58,7 +58,7 @@ const addSection = new Section({
         renderer: (item) => {
             const card = new Card(item, '#card-template');
             const cardElement = card.generateCard();
-            setOpenImageListener(cardElement);
+            handleCardClick(cardElement);
             addSection.addItem(cardElement);
         }
     },
@@ -78,6 +78,7 @@ function submitAddCardForm(evt) {
             renderer: (item) => {
                 const newCard = new Card(item, '#card-template');
                 const cardElement = newCard.generateCard();
+                handleCardClick(cardElement);
                 newSection.addItem(cardElement);
             }
         },
@@ -113,7 +114,7 @@ popupAddCard.setEventListeners();
 popupImage.setEventListeners();
 
 //open Images
-function setOpenImageListener(cardElement) {
+function handleCardClick(cardElement) {
     cardElement.querySelector('.element__image').addEventListener('click', function() {
         popupImage.openPopup(cardElement);
     });
