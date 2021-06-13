@@ -3,6 +3,8 @@ import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initial-сards.js';
 import { Section } from './Section.js';
 import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
 
 const selectorsAll = {
     formSelector: '.form',
@@ -24,11 +26,6 @@ const redactContainer = popupEditProf.querySelector('.popup__container');
 const editContainer = popupAddCards.querySelector('.popup__container');
 const formEditProfile = redactContainer.querySelector('.form');
 const formAddCard = editContainer.querySelector('.form');
-
-const popupImage = page.querySelector('.popup_type_image');
-const imageContainer = popupImage.querySelector('.popup__container');
-const closeImageBtn = imageContainer.querySelector('.popup__close-button');
-
 
 const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
 const openAddCardPopupBtn = profile.querySelector('.profile__add-button');
@@ -55,6 +52,7 @@ cardAdd.toggleButtonState();
 
 const popupEditProfile = new Popup('.popup_type_redact');
 const popupAddCard = new Popup('.popup_type_add-card');
+const popupImage = new PopupWithImage('.popup_type_image');
 
 function formEditProfileSubmitHandler(evt) {
     evt.preventDefault();
@@ -120,14 +118,14 @@ openAddCardPopupBtn.addEventListener('click', function() {
 });
 
 popupAddCard.setEventListeners();
+popupImage.setEventListeners();
 
 formAddCard.addEventListener('submit', submitAddCardForm);
 
 //open Images
 function setOpenImageListener(cardElement) {
-    const cardImage = cardElement.querySelector('.element__image');
-    cardImage.addEventListener('click', function() {
-        openPopup(popupImage);
+    cardElement.addEventListener('click', function() {
+        popupImage.openPopup(cardElement);
     });
 }
 
@@ -139,6 +137,3 @@ popups.forEach((popup) => {
         };
     });
 });
-
-
-closeImageBtn.addEventListener('click', function() { closePopup(popupImage) });
