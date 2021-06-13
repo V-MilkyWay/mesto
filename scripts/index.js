@@ -4,6 +4,11 @@ import { initialCards } from './initial-сards.js';
 import { Section } from './Section.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
+const selectorsUserInfo = {
+    name: '.profile-info__name',
+    job: '.profile-info__job'
+};
 
 const selectorsAll = {
     formSelector: '.form',
@@ -23,9 +28,6 @@ const formAddCard = editContainer.querySelector('.form');
 
 const openEditProfilePopupBtn = document.querySelector('.profile-info__edit-button');
 const openAddCardPopupBtn = document.querySelector('.profile__add-button');
-
-const jobOutput = document.querySelector('.profile-info__job');
-const nameOutput = document.querySelector('.profile-info__name');
 
 //content Redact
 const nameInput = formEditProfile.querySelector('.form__input_type_name');
@@ -47,6 +49,8 @@ cardAdd.toggleButtonState();
 const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
 const popupImage = new PopupWithImage('.popup_type_image');
+
+const userInfo = new UserInfo(selectorsUserInfo);
 
 //initial card from "server"
 const addSection = new Section({
@@ -87,14 +91,14 @@ function submitAddCardForm(evt) {
 
 function formEditProfileSubmitHandler(evt) {
     evt.preventDefault();
-    nameOutput.textContent = nameInput.value;
-    jobOutput.textContent = jobInput.value;
+    userInfo.setUserInfo();
     popupEditProfile.closePopup();
 };
 
 openEditProfilePopupBtn.addEventListener('click', function() {
-    nameInput.value = nameOutput.textContent;
-    jobInput.value = jobOutput.textContent;
+    const data = userInfo.getUserInfo();
+    nameInput.value = data.name;
+    jobInput.value = data.job;
     cardEditProfile.toggleButtonState();
     popupEditProfile.openPopup();
 });
