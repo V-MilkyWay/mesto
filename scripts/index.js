@@ -2,7 +2,6 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initial-сards.js';
 import { Section } from './Section.js';
-import { Popup } from './Popup.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
 
@@ -15,23 +14,18 @@ const selectorsAll = {
     errorClass: 'form__input-error_type_active'
 };
 
-const page = document.querySelector('.page');
-const main = document.querySelector('.main');
-const profile = main.querySelector('.profile');
-const profileInfo = profile.querySelector('.profile-info');
-const popups = page.querySelectorAll('.popup');
-const popupEditProf = page.querySelector('.popup_type_redact');
-const popupAddCards = page.querySelector('.popup_type_add-card');
+const popupEditProf = document.querySelector('.popup_type_redact');
+const popupAddCards = document.querySelector('.popup_type_add-card');
 const redactContainer = popupEditProf.querySelector('.popup__container');
 const editContainer = popupAddCards.querySelector('.popup__container');
 const formEditProfile = redactContainer.querySelector('.form');
 const formAddCard = editContainer.querySelector('.form');
 
-const openEditProfilePopupBtn = profileInfo.querySelector('.profile-info__edit-button');
-const openAddCardPopupBtn = profile.querySelector('.profile__add-button');
+const openEditProfilePopupBtn = document.querySelector('.profile-info__edit-button');
+const openAddCardPopupBtn = document.querySelector('.profile__add-button');
 
-const jobOutput = profileInfo.querySelector('.profile-info__job');
-const nameOutput = profileInfo.querySelector('.profile-info__name');
+const jobOutput = document.querySelector('.profile-info__job');
+const nameOutput = document.querySelector('.profile-info__name');
 
 //content Redact
 const nameInput = formEditProfile.querySelector('.form__input_type_name');
@@ -50,16 +44,10 @@ cardAdd.enableValidation();
 cardEditProfile.toggleButtonState();
 cardAdd.toggleButtonState();
 
-const popupEditProfile = new Popup('.popup_type_redact');
-const popupAddCard = new Popup('.popup_type_add-card');
+const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
+const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
 const popupImage = new PopupWithImage('.popup_type_image');
 
-function formEditProfileSubmitHandler(evt) {
-    evt.preventDefault();
-    nameOutput.textContent = nameInput.value;
-    jobOutput.textContent = jobInput.value;
-    popupEditProfile.closePopup();
-};
 //initial card from "server"
 const addSection = new Section({
         items: initialCards,
@@ -92,15 +80,17 @@ function submitAddCardForm(evt) {
         '.elements'
     );
     newSection.renderItems();
-    resetForm(formAddCard);
     popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
 }
 
-function resetForm(nameForm) {
-    nameForm.reset();
-}
+function formEditProfileSubmitHandler(evt) {
+    evt.preventDefault();
+    nameOutput.textContent = nameInput.value;
+    jobOutput.textContent = jobInput.value;
+    popupEditProfile.closePopup();
+};
 
 openEditProfilePopupBtn.addEventListener('click', function() {
     nameInput.value = nameOutput.textContent;
@@ -108,32 +98,19 @@ openEditProfilePopupBtn.addEventListener('click', function() {
     cardEditProfile.toggleButtonState();
     popupEditProfile.openPopup();
 });
-popupEditProfile.setEventListeners();
-formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
 openAddCardPopupBtn.addEventListener('click', function() {
     cardAdd.toggleButtonState();
     popupAddCard.openPopup();
-    resetForm(formAddCard);
 });
 
+popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();
 popupImage.setEventListeners();
 
-formAddCard.addEventListener('submit', submitAddCardForm);
-
 //open Images
 function setOpenImageListener(cardElement) {
-    cardElement.addEventListener('click', function() {
+    cardElement.querySelector('.element__image').addEventListener('click', function() {
         popupImage.openPopup(cardElement);
     });
 }
-
-// close all popups - overlay
-popups.forEach((popup) => {
-    popup.addEventListener('click', function(evt) {
-        if (evt.target === popup) {
-            popup.classList.remove('popup_opened');
-        };
-    });
-});
