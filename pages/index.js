@@ -28,7 +28,6 @@ const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
 
-
 //initial card from "server"
 const addSection = new Section({
         items: initialCards,

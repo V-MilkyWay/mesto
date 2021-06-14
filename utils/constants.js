@@ -1,6 +1,5 @@
 export const formEditProfile = document.querySelector('#profile');
 export const formAddCard = document.querySelector('#addCard');
-
 export const openEditProfilePopupBtn = document.querySelector('.profile-info__edit-button');
 export const openAddCardPopupBtn = document.querySelector('.profile__add-button');
 
