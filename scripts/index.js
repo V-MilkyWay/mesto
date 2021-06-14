@@ -6,37 +6,23 @@ import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
 import { UserInfo } from './UserInfo.js';
 
-const selectorsUserInfo = {
-    name: '.profile-info__name',
-    job: '.profile-info__job'
-};
-
 const selectorsAll = {
     formSelector: '.form',
     inputSelector: '.form__input',
     submitButtonSelector: '.form__save-button',
     inactiveButtonClass: 'form__save-button_inactive',
     inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_type_active'
+    errorClass: 'form__input-error_type_active',
+    infoName: '.profile-info__name',
+    infoJob: '.profile-info__job',
+    elements: '.elements'
 };
 
-const popupEditProf = document.querySelector('.popup_type_redact');
-const popupAddCards = document.querySelector('.popup_type_add-card');
-const redactContainer = popupEditProf.querySelector('.popup__container');
-const editContainer = popupAddCards.querySelector('.popup__container');
-const formEditProfile = redactContainer.querySelector('.form');
-const formAddCard = editContainer.querySelector('.form');
+const formEditProfile = document.querySelector('#profile');
+const formAddCard = document.querySelector('#addCard');
 
 const openEditProfilePopupBtn = document.querySelector('.profile-info__edit-button');
 const openAddCardPopupBtn = document.querySelector('.profile__add-button');
-
-//content Redact
-const nameInput = formEditProfile.querySelector('.form__input_type_name');
-const jobInput = formEditProfile.querySelector('.form__input_type_job');
-
-//content Edit for new Card
-const titleEdit = formAddCard.querySelector('.form__input_type_title');
-const linkEdit = formAddCard.querySelector('.form__input_type_link');
 
 //validations
 const cardEditProfile = new FormValidator(selectorsAll, formEditProfile);
@@ -51,7 +37,7 @@ const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfile
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
 const popupImage = new PopupWithImage('.popup_type_image');
 
-const userInfo = new UserInfo(selectorsUserInfo);
+const userInfo = new UserInfo(selectorsAll);
 
 //initial card from "server"
 const addSection = new Section({
@@ -62,13 +48,17 @@ const addSection = new Section({
             addSection.addItem(cardElement);
         }
     },
-    '.elements'
+    selectorsAll.elements
 );
 addSection.renderItems();
 
 //initial new card
 function submitAddCardForm(evt) {
     evt.preventDefault();
+    //content Edit for new Card
+    const titleEdit = document.querySelector('.form__input_type_title');
+    const linkEdit = document.querySelector('.form__input_type_link');
+
     const data = [{
         name: titleEdit.value,
         link: linkEdit.value
@@ -81,7 +71,7 @@ function submitAddCardForm(evt) {
                 newSection.addItem(cardElement);
             }
         },
-        '.elements'
+        selectorsAll.elements
     );
     newSection.renderItems();
     popupAddCard.closePopup();
@@ -97,6 +87,10 @@ function formEditProfileSubmitHandler(evt) {
 
 openEditProfilePopupBtn.addEventListener('click', function() {
     const data = userInfo.getUserInfo();
+    //content Redact
+    const nameInput = document.querySelector('.form__input_type_name');
+    const jobInput = document.querySelector('.form__input_type_job');
+
     nameInput.value = data.name;
     jobInput.value = data.job;
     cardEditProfile.toggleButtonState();
