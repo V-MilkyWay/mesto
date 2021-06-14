@@ -1,28 +1,17 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { initialCards } from './initial-сards.js';
-import { Section } from './Section.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
-
-const selectorsAll = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__save-button',
-    inactiveButtonClass: 'form__save-button_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_type_active',
-    infoName: '.profile-info__name',
-    infoJob: '.profile-info__job',
-    elements: '.elements'
-};
-
-const formEditProfile = document.querySelector('#profile');
-const formAddCard = document.querySelector('#addCard');
-
-const openEditProfilePopupBtn = document.querySelector('.profile-info__edit-button');
-const openAddCardPopupBtn = document.querySelector('.profile__add-button');
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { initialCards } from '../utils/initial-сards.js';
+import { Section } from '../components/Section.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
+import {
+    formEditProfile,
+    formAddCard,
+    openEditProfilePopupBtn,
+    openAddCardPopupBtn,
+    selectorsAll
+} from '../utils/constants.js';
 
 //validations
 const cardEditProfile = new FormValidator(selectorsAll, formEditProfile);
@@ -38,6 +27,7 @@ const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm
 const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
+
 
 //initial card from "server"
 const addSection = new Section({
