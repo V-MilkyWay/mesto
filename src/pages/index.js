@@ -20,7 +20,6 @@ const cardAdd = new FormValidator(selectorsAll, formAddCard);
 
 cardEditProfile.enableValidation();
 cardAdd.enableValidation();
-cardEditProfile.toggleButtonState();
 cardAdd.toggleButtonState();
 
 const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
@@ -29,13 +28,16 @@ const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
 
+function renderCard(item) {
+    const card = new Card(item, '#card-template', handleCardClick);
+    const cardElement = card.generateCard();
+    return cardElement;
+}
 //initial card from "server"
 const addSection = new Section({
         items: initialCards,
         renderer: (item) => {
-            const card = new Card(item, '#card-template', handleCardClick);
-            const cardElement = card.generateCard();
-            addSection.addItem(cardElement);
+            addSection.addItem(renderCard(item));
         }
     },
     selectorsAll.elements
@@ -43,35 +45,17 @@ const addSection = new Section({
 addSection.renderItems();
 
 //initial new card
-function submitAddCardForm(evt) {
+function submitAddCardForm(evt, data) {
     evt.preventDefault();
-    //content Edit for new Card
-    const titleEdit = document.querySelector('.form__input_type_title');
-    const linkEdit = document.querySelector('.form__input_type_link');
-
-    const data = [{
-        name: titleEdit.value,
-        link: linkEdit.value
-    }]
-    const newSection = new Section({
-            items: data,
-            renderer: (item) => {
-                const newCard = new Card(item, '#card-template', handleCardClick);
-                const cardElement = newCard.generateCard();
-                newSection.addItem(cardElement);
-            }
-        },
-        selectorsAll.elements
-    );
-    newSection.renderItems();
+    addSection.addItem(renderCard(data));
     popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
 }
 
-function formEditProfileSubmitHandler(evt) {
+function formEditProfileSubmitHandler(evt, data) {
     evt.preventDefault();
-    userInfo.setUserInfo();
+    userInfo.setUserInfo(data);
     popupEditProfile.closePopup();
 };
 

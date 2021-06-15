@@ -9,9 +9,9 @@ export class UserInfo {
         const data = { name: name, job: job };
         return data;
     }
-    setUserInfo() {
-        const nameInput = document.querySelector('.form__input_type_name').value;
-        const jobInput = document.querySelector('.form__input_type_job').value;
+    setUserInfo(data) {
+        const nameInput = data.name;
+        const jobInput = data.job;
         this._name.textContent = nameInput;
         this._job.textContent = jobInput;
     }

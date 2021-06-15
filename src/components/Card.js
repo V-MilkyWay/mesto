@@ -1,9 +1,9 @@
 export class Card {
-    constructor({ name, link }, cardSelector, renderer) {
+    constructor({ name, link }, cardSelector, handleCardClick) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
-        this._renderer = renderer;
+        this._handleCardClick = handleCardClick;
     }
     _getTemplate() {
         const cardElement = document
@@ -44,7 +44,7 @@ export class Card {
         });
         this._element.querySelector('.element__image').addEventListener('click', () => {
 
-            this._renderer(this._element);
+            this._handleCardClick(this._element);
         });
     }
 }
