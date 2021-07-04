@@ -12,5 +12,7 @@ export const selectorsAll = {
     errorClass: 'form__input-error_type_active',
     infoName: '.profile-info__name',
     infoJob: '.profile-info__job',
-    elements: '.elements'
+    elements: '.elements',
+    infoTitle: '.form__input_type_title',
+    infoLink: '.form__input_type_link'
 };

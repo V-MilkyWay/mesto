@@ -1,7 +1,6 @@
 import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { initialCards } from '../utils/initial-сards.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
@@ -28,36 +27,38 @@ const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
 
-function renderCard(item) {
-    const card = new Card(item, '#card-template', handleCardClick);
-    const cardElement = card.generateCard();
-    return cardElement;
-}
-//initial card from "server"
 const addSection = new Section({
-        items: initialCards,
         renderer: (item) => {
             addSection.addItem(renderCard(item));
         }
     },
     selectorsAll.elements
 );
-addSection.renderItems();
+//initial card from server
+initCardsFromServer()
+
+function formEditProfileSubmitHandler(evt, data) {
+    evt.preventDefault();
+    userInfo.setUserInfo(data);
+    loadingUserInfoOnServer();
+    popupEditProfile.closePopup();
+};
+
+function renderCard(item) {
+    const card = new Card(item, '#card-template', handleCardClick);
+    const cardElement = card.generateCard();
+    return cardElement;
+}
 
 //initial new card
 function submitAddCardForm(evt, data) {
     evt.preventDefault();
     addSection.addItem(renderCard(data));
+    loadingNewCardOnServer();
     popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
 }
-
-function formEditProfileSubmitHandler(evt, data) {
-    evt.preventDefault();
-    userInfo.setUserInfo(data);
-    popupEditProfile.closePopup();
-};
 
 openEditProfilePopupBtn.addEventListener('click', function() {
     const data = userInfo.getUserInfo();
@@ -83,4 +84,61 @@ popupImage.setEventListeners();
 //open image
 function handleCardClick(elementImage) {
     popupImage.openPopup(elementImage);
+}
+
+
+//initial users
+fetch('https://nomoreparties.co/v1/cohort-25/users/me', {
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49'
+        }
+    })
+    .then(res => res.json())
+    .then((result) => {
+        document.getElementById('name').textContent = result.name;
+        document.getElementById('about').textContent = result.about;
+        document.getElementById('avatar').src = result.avatar;
+    });
+
+
+//initial card from server
+function initCardsFromServer() {
+    return fetch('https://nomoreparties.co/v1/cohort-25/cards', {
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49'
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            addSection.renderItems(result);
+        })
+}
+//loading info about user on server
+function loadingUserInfoOnServer() {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-25/users/me', {
+        method: 'PATCH',
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: document.querySelector(selectorsAll.infoName).textContent,
+            about: document.querySelector(selectorsAll.infoJob).textContent
+        })
+    });
+};
+
+//loading new cards on server 
+function loadingNewCardOnServer() {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-25/cards', {
+        method: 'POST',
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: document.querySelector(selectorsAll.infoTitle).value,
+            link: document.querySelector(selectorsAll.infoLink).value
+        })
+    });
 }
