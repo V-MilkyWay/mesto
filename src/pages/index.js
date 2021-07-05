@@ -37,7 +37,7 @@ const addSection = new Section({
     selectorsAll.elements
 );
 //initial card from server
-initCardsFromServer()
+initCardsFromServer();
 
 function formEditProfileSubmitHandler(evt, data) {
     evt.preventDefault();
@@ -60,8 +60,8 @@ function renderCard(item) {
 }
 
 //initial delele card
-function buttonDeleteCard(element, id) {
-    popupDeletion.deleteEventListener(element, id);
+function buttonDeleteCard(element, cardId) {
+    popupDeletion.deleteEventListener(element, cardId);
     popupDeletion.closePopup();
 }
 //open popup for delele card
@@ -70,10 +70,9 @@ function openPopupDeletion() {
 }
 
 //initial new card
-function submitAddCardForm(evt, data) {
+function submitAddCardForm(evt) {
     evt.preventDefault();
-    addSection.addItem(renderCard(data));
-    loadingNewCardOnServer();
+    loadingNewCardOnServer()
     popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
@@ -96,9 +95,9 @@ openAddCardPopupBtn.addEventListener('click', function() {
 });
 
 popupEditProfile.setEventListeners();
+popupDeletion.setEventListeners();
 popupAddCard.setEventListeners();
 popupImage.setEventListeners();
-popupDeletion.setEventListeners();
 
 //open image
 function handleCardClick(elementImage) {
@@ -129,7 +128,7 @@ function initCardsFromServer() {
         })
         .then(res => res.json())
         .then(result => {
-            addSection.renderItems(result);
+            addSection.renderItems(result.reverse());
         })
 }
 //loading info about user on server
@@ -149,18 +148,24 @@ function loadingUserInfoOnServer() {
 
 //loading new cards on server 
 function loadingNewCardOnServer() {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-25/cards', {
-        method: 'POST',
-        headers: {
-            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: document.querySelector(selectorsAll.infoTitle).value,
-            link: document.querySelector(selectorsAll.infoLink).value,
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-25/cards', {
+            method: 'POST',
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: document.querySelector(selectorsAll.infoTitle).value,
+                link: document.querySelector(selectorsAll.infoLink).value,
+            })
         })
-    });
+        .then(res => res.json())
+        .then(result => {
+            addSection.addItem(renderCard(result));
+        })
 }
+
+
 //delete cards from server
 function deleteCardFromServer(cardId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/${cardId}`, {
@@ -172,8 +177,8 @@ function deleteCardFromServer(cardId) {
 }
 
 //like cards
-function likeCards(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${cardId}`, {
+function likeCards(likeId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${likeId}`, {
         method: 'PUT',
         headers: {
             authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
@@ -182,8 +187,8 @@ function likeCards(cardId) {
 }
 
 //dislike cards
-function dislikeCards(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${cardId}`, {
+function dislikeCards(likeId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${likeId}`, {
         method: 'DELETE',
         headers: {
             authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',

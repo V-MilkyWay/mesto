@@ -1,5 +1,5 @@
 export class Card {
-    constructor({ name, link, likes = [], owner, _id },
+    constructor({ name, link, likes = [], _id, owner },
         cardSelector,
         handleCardClick,
         openPopupDeletion,
