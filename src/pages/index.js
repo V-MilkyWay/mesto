@@ -24,7 +24,7 @@ cardAdd.toggleButtonState();
 
 const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
-const popupDeletion = new PopupWithDeletionButton('.popup_type_deletion');
+const popupDeletion = new PopupWithDeletionButton('.popup_type_deletion', deleteCardFromServer);
 const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
@@ -47,15 +47,21 @@ function formEditProfileSubmitHandler(evt, data) {
 };
 
 function renderCard(item) {
-    const card = new Card(item, '#card-template', handleCardClick, openPopupDeletion, buttonDeleteCard);
+    const card = new Card(
+        item,
+        '#card-template',
+        handleCardClick,
+        openPopupDeletion,
+        buttonDeleteCard,
+        dislikeCards,
+        likeCards);
     const cardElement = card.generateCard();
     return cardElement;
 }
 
 //initial delele card
 function buttonDeleteCard(element, id) {
-    popupDeletion.deleteEventListener(element);
-    deleteCardFromServer(id)
+    popupDeletion.deleteEventListener(element, id);
     popupDeletion.closePopup();
 }
 //open popup for delele card
@@ -123,7 +129,6 @@ function initCardsFromServer() {
         })
         .then(res => res.json())
         .then(result => {
-            console.log(result);
             addSection.renderItems(result);
         })
 }
@@ -159,6 +164,26 @@ function loadingNewCardOnServer() {
 //delete cards from server
 function deleteCardFromServer(cardId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+        }
+    });
+}
+
+//like cards
+function likeCards(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+        }
+    });
+}
+
+//dislike cards
+function dislikeCards(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: {
             authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
