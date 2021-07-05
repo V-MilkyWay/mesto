@@ -38,7 +38,9 @@
 @import url(../blocks/element/__button-trash/element__button-trash.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__text/element__text.css);
-@import url(../blocks/element/__like/element__like.css);
-@import url(../blocks/element/__like/_active/element__like_active.css);
+@import url(../blocks/element-like/element-like.css);
+@import url(../blocks/element-like/__like/element-like__like.css);
+@import url(../blocks/element-like/__like/_active/element-like__like_active.css);
+@import url(../blocks/element-like/__number/element-like__number.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

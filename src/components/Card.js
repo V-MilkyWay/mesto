@@ -15,7 +15,7 @@ export class Card {
     }
     _setLikeCardListener(evt) {
 
-        evt.target.classList.toggle('element__like_active');
+        evt.target.classList.toggle('element-like__like_active');
     }
     _setDeleteCardListener() {
 
@@ -34,7 +34,7 @@ export class Card {
         return this._element;
     }
     _setEventListeners() {
-        this._element.querySelector('.element__like').addEventListener('click', (evt) => {
+        this._element.querySelector('.element-like__like').addEventListener('click', (evt) => {
             this._setLikeCardListener(evt);
         });
 
