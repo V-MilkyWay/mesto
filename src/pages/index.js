@@ -4,6 +4,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithDeletionButton } from '../components/PopupWithDeletionButton.js';
 import { UserInfo } from '../components/UserInfo.js';
 import {
     formEditProfile,
@@ -23,6 +24,7 @@ cardAdd.toggleButtonState();
 
 const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
+const popupDeletion = new PopupWithDeletionButton('.popup_type_deletion');
 const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
@@ -45,9 +47,19 @@ function formEditProfileSubmitHandler(evt, data) {
 };
 
 function renderCard(item) {
-    const card = new Card(item, '#card-template', handleCardClick);
+    const card = new Card(item, '#card-template', handleCardClick, openPopupDeletion, buttonDeleteCard);
     const cardElement = card.generateCard();
     return cardElement;
+}
+
+//initial delele card
+function buttonDeleteCard(element) {
+    popupDeletion.deleteEventListener(element);
+    popupDeletion.closePopup();
+}
+//open popup for delele card
+function openPopupDeletion() {
+    popupDeletion.openPopup();
 }
 
 //initial new card
