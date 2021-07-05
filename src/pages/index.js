@@ -53,8 +53,9 @@ function renderCard(item) {
 }
 
 //initial delele card
-function buttonDeleteCard(element) {
+function buttonDeleteCard(element, id) {
     popupDeletion.deleteEventListener(element);
+    deleteCardFromServer(id)
     popupDeletion.closePopup();
 }
 //open popup for delele card
@@ -74,7 +75,6 @@ function submitAddCardForm(evt, data) {
 
 openEditProfilePopupBtn.addEventListener('click', function() {
     const data = userInfo.getUserInfo();
-    //content Redact
     const nameInput = document.querySelector('.form__input_type_name');
     const jobInput = document.querySelector('.form__input_type_job');
 
@@ -123,6 +123,7 @@ function initCardsFromServer() {
         })
         .then(res => res.json())
         .then(result => {
+            console.log(result);
             addSection.renderItems(result);
         })
 }
@@ -151,7 +152,16 @@ function loadingNewCardOnServer() {
         },
         body: JSON.stringify({
             name: document.querySelector(selectorsAll.infoTitle).value,
-            link: document.querySelector(selectorsAll.infoLink).value
+            link: document.querySelector(selectorsAll.infoLink).value,
         })
+    });
+}
+//delete cards from server
+function deleteCardFromServer(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+        }
     });
 }

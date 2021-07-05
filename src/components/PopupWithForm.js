@@ -12,7 +12,7 @@ export class PopupWithForm extends Popup {
             const item = inputElements.item(i);
             inputElement[item.name] = item.value;
         }
-
+        inputElement.owner = { _id: '3763323d9d807db6f0706222' };
         return inputElement
     }
     setEventListeners() {

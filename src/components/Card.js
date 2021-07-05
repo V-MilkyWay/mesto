@@ -1,8 +1,10 @@
 export class Card {
-    constructor({ name, link, likes }, cardSelector, handleCardClick, openPopupDeletion, buttonDeleteCard) {
+    constructor({ name, link, likes = [], owner, _id }, cardSelector, handleCardClick, openPopupDeletion, buttonDeleteCard) {
         this._name = name;
         this._link = link;
-        this._number = likes.length
+        this._number = likes.length;
+        this._owner = owner._id;
+        this._id = _id;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._openPopupDeletion = openPopupDeletion;
@@ -33,7 +35,12 @@ export class Card {
         this._element.querySelector('.element__text').textContent = this._name;
         this._element.querySelector('.element__image').alt = this._name;
         this._element.querySelector('.element-like__number').textContent = this._number;
-        return this._element;
+        if (this._owner === '3763323d9d807db6f0706222') {
+            return this._element;
+        } else {
+            this._element.querySelector('.element__button-trash').style.display = "none";
+            return this._element;
+        }
     }
     _setEventListeners() {
         this._element.querySelector('.element-like__like').addEventListener('click', (evt) => {
@@ -41,7 +48,7 @@ export class Card {
         });
 
         this._element.querySelector('.element__button-trash').addEventListener('click', () => {
-            this._buttonDeleteCard(this._element);
+            this._buttonDeleteCard(this._element, this._id);
             this._openPopupDeletion()
         });
         this._element.querySelector('.element__image').addEventListener('click', () => {
