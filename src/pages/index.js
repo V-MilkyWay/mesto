@@ -92,6 +92,7 @@ openAddCardPopupBtn.addEventListener('click', function() {
 popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();
 popupImage.setEventListeners();
+popupDeletion.setEventListeners();
 
 //open image
 function handleCardClick(elementImage) {
