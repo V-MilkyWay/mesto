@@ -9,6 +9,8 @@ import { UserInfo } from '../components/UserInfo.js';
 import {
     formEditProfile,
     formAddCard,
+    formRedactAvatar,
+    openRedactAvatarPopupBtn,
     openEditProfilePopupBtn,
     openAddCardPopupBtn,
     selectorsAll
@@ -17,13 +19,15 @@ import {
 //validations
 const cardEditProfile = new FormValidator(selectorsAll, formEditProfile);
 const cardAdd = new FormValidator(selectorsAll, formAddCard);
-
+const cardRedactAvatar = new FormValidator(selectorsAll, formRedactAvatar);
 cardEditProfile.enableValidation();
+cardRedactAvatar.enableValidation();
 cardAdd.enableValidation();
 cardAdd.toggleButtonState();
 
 const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
+const popupRedactAvatar = new PopupWithForm('.popup_type_redact-avatar', submitRedactAvatarForm);
 const popupDeletion = new PopupWithDeletionButton('.popup_type_deletion', deleteCardFromServer);
 const popupImage = new PopupWithImage('.popup_type_image');
 
@@ -68,11 +72,18 @@ function buttonDeleteCard(element, cardId) {
 function openPopupDeletion() {
     popupDeletion.openPopup();
 }
-
+//redact avatar
+function submitRedactAvatarForm(evt, data) {
+    evt.preventDefault();
+    userInfo.setAvatarLink(data);
+    loadingNewAvatarOnServer();
+    popupRedactAvatar.closePopup();
+    cardRedactAvatar.toggleButtonState();
+}
 //initial new card
 function submitAddCardForm(evt) {
     evt.preventDefault();
-    loadingNewCardOnServer()
+    loadingNewCardOnServer();
     popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
@@ -94,6 +105,12 @@ openAddCardPopupBtn.addEventListener('click', function() {
     popupAddCard.openPopup();
 });
 
+openRedactAvatarPopupBtn.addEventListener('click', function() {
+    cardRedactAvatar.toggleButtonState();
+    popupRedactAvatar.openPopup();
+});
+
+popupRedactAvatar.setEventListeners();
 popupEditProfile.setEventListeners();
 popupDeletion.setEventListeners();
 popupAddCard.setEventListeners();
@@ -195,3 +212,17 @@ function dislikeCards(likeId) {
         }
     });
 }
+
+//loading new avatar on server
+function loadingNewAvatarOnServer() {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-25/users/me/avatar', {
+        method: 'PATCH',
+        headers: {
+            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            avatar: document.querySelector(selectorsAll.infoAvatar).src
+        })
+    });
+};
