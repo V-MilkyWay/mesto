@@ -58,7 +58,10 @@
         </header>
         <main class="main">
             <section class="profile">
-                <img id="avatar" class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt='Аватарка'>
+                <div class="profile-avatar">
+                    <img id="avatar" class="profile-avatar__image" src="<%=require('./images/avatar.png')%>" alt='Аватарка'>
+                    <button type="button" class="profile-avatar__redact-button"></button>
+                </div>
                 <div class="profile-info">
                     <h1 id="name" class="profile-info__name">Жак-Ив Кусто</h1>
                     <p id="about" class="profile-info__job">Исследователь океана</p>

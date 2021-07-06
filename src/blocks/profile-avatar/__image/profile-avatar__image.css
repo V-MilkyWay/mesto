@@ -1,0 +1,4 @@
+.profile-avatar__image {
+    display: flex;
+    z-index: 1;
+}
