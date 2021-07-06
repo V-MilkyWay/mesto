@@ -4,6 +4,9 @@ export const formRedactAvatar = document.querySelector('#redactAvatar');
 export const openEditProfilePopupBtn = document.querySelector('.profile-info__edit-button');
 export const openAddCardPopupBtn = document.querySelector('.profile__add-button');
 export const openRedactAvatarPopupBtn = document.querySelector('.profile-avatar__redact-button');
+export const popupProfileRedact = document.querySelector('.popup_type_redact');
+export const popupAvatarRedact = document.querySelector('.popup_type_redact-avatar');
+export const popupAddNewCard = document.querySelector('.popup_type_add-card');
 
 export const selectorsAll = {
     formSelector: '.form',
@@ -17,5 +20,5 @@ export const selectorsAll = {
     infoAvatar: '.profile-avatar__image',
     elements: '.elements',
     infoTitle: '.form__input_type_title',
-    infoLink: '.form__input_type_link'
+    infoLink: '.form__input_type_link',
 };

@@ -13,6 +13,9 @@ import {
     openRedactAvatarPopupBtn,
     openEditProfilePopupBtn,
     openAddCardPopupBtn,
+    popupProfileRedact,
+    popupAvatarRedact,
+    popupAddNewCard,
     selectorsAll
 } from '../utils/constants.js';
 
@@ -45,6 +48,7 @@ initCardsFromServer();
 
 function formEditProfileSubmitHandler(evt, data) {
     evt.preventDefault();
+    renderLoading(true, popupProfileRedact);
     userInfo.setUserInfo(data);
     loadingUserInfoOnServer();
     popupEditProfile.closePopup();
@@ -75,14 +79,16 @@ function openPopupDeletion() {
 //redact avatar
 function submitRedactAvatarForm(evt, data) {
     evt.preventDefault();
+    renderLoading(true, popupAvatarRedact);
     userInfo.setAvatarLink(data);
-    loadingNewAvatarOnServer();
+    loadingNewAvatarOnServer()
     popupRedactAvatar.closePopup();
     cardRedactAvatar.toggleButtonState();
 }
 //initial new card
 function submitAddCardForm(evt) {
     evt.preventDefault();
+    renderLoading(true, popupAddNewCard);
     loadingNewCardOnServer();
     popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
@@ -121,6 +127,13 @@ function handleCardClick(elementImage) {
     popupImage.openPopup(elementImage);
 }
 
+/////API
+
+function renderError(err) {
+    result.textContent = '';
+    error.textContent = err;
+}
+
 
 //initial users
 fetch('https://nomoreparties.co/v1/cohort-25/users/me', {
@@ -151,16 +164,22 @@ function initCardsFromServer() {
 //loading info about user on server
 function loadingUserInfoOnServer() {
     fetch('https://mesto.nomoreparties.co/v1/cohort-25/users/me', {
-        method: 'PATCH',
-        headers: {
-            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: document.querySelector(selectorsAll.infoName).textContent,
-            about: document.querySelector(selectorsAll.infoJob).textContent
+            method: 'PATCH',
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: document.querySelector(selectorsAll.infoName).textContent,
+                about: document.querySelector(selectorsAll.infoJob).textContent
+            })
         })
-    });
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            renderLoading(false, popupProfileRedact);
+        });
 };
 
 //loading new cards on server 
@@ -180,49 +199,99 @@ function loadingNewCardOnServer() {
         .then(result => {
             addSection.addItem(renderCard(result));
         })
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            renderLoading(false, popupAddNewCard);
+        });
 }
 
 
 //delete cards from server
 function deleteCardFromServer(cardId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
-        }
-    });
+            method: 'DELETE',
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+            }
+        })
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        });
 }
 
 //like cards
 function likeCards(likeId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${likeId}`, {
-        method: 'PUT',
-        headers: {
-            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
-        }
-    });
+            method: 'PUT',
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+            }
+        })
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        });
 }
 
 //dislike cards
 function dislikeCards(likeId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-25/cards/likes/${likeId}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
-        }
-    });
+            method: 'DELETE',
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+            }
+        })
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        });
 }
 
 //loading new avatar on server
 function loadingNewAvatarOnServer() {
     fetch('https://mesto.nomoreparties.co/v1/cohort-25/users/me/avatar', {
-        method: 'PATCH',
-        headers: {
-            authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            avatar: document.querySelector(selectorsAll.infoAvatar).src
+            method: 'PATCH',
+            headers: {
+                authorization: '3f7400de-4faa-456b-995e-bfe48f676c49',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: document.querySelector(selectorsAll.infoAvatar).src
+            })
         })
-    });
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            renderLoading(false, popupAvatarRedact);
+        });
 };
+//good UX
+
+
+function renderLoading(isLoading, popup) {
+    if (isLoading) {
+        popup.querySelector('.form__loading').classList.add('form__loading_visible');
+        popup.querySelector('.form__save-button').classList.add('form__save-button_hidden');
+    } else {
+        popup.querySelector('.form__loading').classList.remove('form__loading_visible');
+        popup.querySelector('.form__save-button').classList.remove('form__save-button_hidden');
+    }
+}
+
+/*
+если isLoading равен true, 
+элементу spinner нужно добавить класс spinner_visible,
+ а элементу content — класс content_hidden
+  (это нужно, чтобы скрыть этот блок пока идёт загрузка);
+  +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  function renderLoading(isLoading){
+   if (isLoading) {
+    spinner.classList.add('spinner_visible');
+    content.classList.add('content_hidden');
+  } else {
+    spinner.classList.remove('spinner_visible');
+    content.classList.remove('content_hidden');
+  }
+} 
+ */
