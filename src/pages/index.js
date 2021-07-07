@@ -126,7 +126,7 @@ function handleCardClick(elementImage) {
     popupImage.openPopup(elementImage);
 }
 
-/////API
+//API
 const api = new Api({
     baseUrl: 'https://nomoreparties.co/v1/cohort-25',
     headers: {
@@ -188,10 +188,10 @@ function loadingUserInfo() {
 //good UX
 function renderLoading(isLoading, popup) {
     if (isLoading) {
-        popup.querySelector('.form__loading').classList.add('form__loading_visible');
-        popup.querySelector('.form__save-button').classList.add('form__save-button_hidden');
+        popup.querySelector(selectorsAll.formloading).classList.add('form__loading_visible');
+        popup.querySelector(selectorsAll.submitButtonSelector).classList.add('form__save-button_hidden');
     } else {
-        popup.querySelector('.form__loading').classList.remove('form__loading_visible');
-        popup.querySelector('.form__save-button').classList.remove('form__save-button_hidden');
+        popup.querySelector(selectorsAll.formloading).classList.remove('form__loading_visible');
+        popup.querySelector(selectorsAll.submitButtonSelector).classList.remove('form__save-button_hidden');
     }
 }

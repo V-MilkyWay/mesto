@@ -21,4 +21,5 @@ export const selectorsAll = {
     elements: '.elements',
     infoTitle: '.form__input_type_title',
     infoLink: '.form__input_type_link',
+    formloading: '.form__loading'
 };
