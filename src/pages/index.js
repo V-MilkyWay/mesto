@@ -127,6 +127,11 @@ function handleCardClick(elementImage) {
 }
 
 //API
+function renderError(err) {
+    result.textContent = '';
+    error.textContent = err;
+}
+
 const api = new Api({
     baseUrl: 'https://nomoreparties.co/v1/cohort-25',
     headers: {
