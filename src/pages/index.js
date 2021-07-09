@@ -100,7 +100,7 @@ openEditProfilePopupBtn.addEventListener('click', function() {
     const jobInput = document.querySelector('.form__input_type_job');
 
     nameInput.value = data.name;
-    jobInput.value = data.job;
+    jobInput.value = data.about;
     cardEditProfile.toggleButtonState();
     popupEditProfile.openPopup();
 });
@@ -140,24 +140,41 @@ api.initCardsFromServer().then(result => {
     addSection.renderItems(result.reverse());
 });
 //initial users
-api.initialUsers();
+initialUsersFromServer();
 
+function initialUsersFromServer() {
+    api.initialUsers()
+        .then((result) => {
+            userInfo.setUserInfo(result);
+            userInfo.setAvatarLink(result);
+        });
+}
 //delete cards from server
 function deleteServerCard(cardId) {
     api.deleteCardFromServer(cardId)
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        });
 }
 //like cards
 function likeCard(likeId) {
-    api.likeCards(likeId);
+    api.likeCards(likeId).catch((err) => {
+        renderError(`Ошибка: ${err}`);
+    });
 }
 
 //dislike cards
 function dislikeCard(likeId) {
-    api.dislikeCards(likeId);
+    api.dislikeCards(likeId).catch((err) => {
+        renderError(`Ошибка: ${err}`);
+    });
 }
 //loading new avatar on server
 function loadingAvatar() {
     api.loadingNewAvatarOnServer(selectorsAll.infoAvatar)
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
         .finally(() => {
             renderLoading(false, popupAvatarRedact);
         });

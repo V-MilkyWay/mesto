@@ -1,8 +1,14 @@
 export class Api {
     constructor(options) {
-            this._baseUrl = options.baseUrl;
-            this._authorization = options.headers.authorization;
-            this._contentType = options.headers['Content-Type']
+        this._baseUrl = options.baseUrl;
+        this._authorization = options.headers.authorization;
+        this._contentType = options.headers['Content-Type']
+    }
+    _getResponseData(res) {
+            if (!res.ok) {
+                return Promise.reject(`Ошибка: ${res.status}`);
+            }
+            return res.json();
         }
         //initial users
     initialUsers() {
@@ -11,12 +17,7 @@ export class Api {
                         authorization: this._authorization
                     }
                 })
-                .then(res => res.json())
-                .then((result) => {
-                    document.getElementById('name').textContent = result.name;
-                    document.getElementById('about').textContent = result.about;
-                    document.getElementById('avatar').src = result.avatar;
-                });
+                .then(res => this._getResponseData(res))
         }
         //initial card from server
     initCardsFromServer() {
@@ -25,12 +26,7 @@ export class Api {
                         authorization: this._authorization
                     }
                 })
-                .then(res => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                });
+                .then(res => this._getResponseData(res));
         }
         //loading info about user on server
     loadingUserInfoOnServer(infoName, infoJob) {
@@ -44,7 +40,7 @@ export class Api {
                     name: document.querySelector(infoName).textContent,
                     about: document.querySelector(infoJob).textContent
                 })
-            })
+            }).then(res => this._getResponseData(res))
         }
         //loading new cards on server 
     loadingNewCardOnServer(infoTitle, infoLink) {
@@ -59,12 +55,7 @@ export class Api {
                         link: document.querySelector(infoLink).value,
                     })
                 })
-                .then(res => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                });
+                .then(res => this._getResponseData(res));
         }
         //delete cards from server
     deleteCardFromServer(cardId) {
@@ -74,9 +65,7 @@ export class Api {
                         authorization: this._authorization,
                     }
                 })
-                .catch((err) => {
-                    renderError(`Ошибка: ${err}`);
-                });
+                .then(res => this._getResponseData(res))
         }
         //like cards
     likeCards(likeId) {
@@ -86,9 +75,7 @@ export class Api {
                         authorization: this._authorization
                     }
                 })
-                .catch((err) => {
-                    renderError(`Ошибка: ${err}`);
-                });
+                .then(res => this._getResponseData(res))
         }
         //dislike cards
     dislikeCards(likeId) {
@@ -98,9 +85,7 @@ export class Api {
                         authorization: this._authorization
                     }
                 })
-                .catch((err) => {
-                    renderError(`Ошибка: ${err}`);
-                });
+                .then(res => this._getResponseData(res))
         }
         //loading new avatar on server
     loadingNewAvatarOnServer(infoAvatar) {
@@ -114,8 +99,6 @@ export class Api {
                     avatar: document.querySelector(infoAvatar).src
                 })
             })
-            .catch((err) => {
-                renderError(`Ошибка: ${err}`);
-            })
+            .then(res => this._getResponseData(res))
     }
 }
