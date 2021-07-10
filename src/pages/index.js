@@ -50,7 +50,6 @@ function formEditProfileSubmitHandler(evt, data) {
     renderLoading(true, popupProfileRedact);
     userInfo.setUserInfo(data);
     loadingUserInfo();
-    popupEditProfile.closePopup();
 };
 
 function buttonDeleteCard(card, cardId) {
@@ -75,11 +74,6 @@ function submitDeleteCard(evt, card, cardId) {
     evt.preventDefault();
     deleteServerCard(cardId);
     card.deleteСard();
-    popupDeletion.closePopup;
-}
-//open popup for delele card
-function openPopupDeletion() {
-    popupDeletion.openPopup();
 }
 //redact avatar
 function submitRedactAvatarForm(evt, data) {
@@ -87,7 +81,6 @@ function submitRedactAvatarForm(evt, data) {
     renderLoading(true, popupAvatarRedact);
     userInfo.setAvatarLink(data);
     loadingAvatar();
-    popupRedactAvatar.closePopup();
     cardRedactAvatar.toggleButtonState();
 }
 //initial new card
@@ -95,7 +88,6 @@ function submitAddCardForm(evt) {
     evt.preventDefault();
     renderLoading(true, popupAddNewCard);
     loadingNewCard();
-    popupAddCard.closePopup();
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
 }
@@ -165,7 +157,7 @@ function deleteServerCard(cardId) {
     api.deleteCardFromServer(cardId)
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
-        })
+        }).then(() => popupDeletion.closePopup());
 }
 //like cards
 function likeCard(likeId) {
@@ -183,6 +175,7 @@ function dislikeCard(likeId) {
 //loading new avatar on server
 function loadingAvatar() {
     api.loadingNewAvatarOnServer(selectorsAll.infoAvatar)
+        .then(() => popupRedactAvatar.closePopup())
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
         })
@@ -195,6 +188,7 @@ function loadingNewCard() {
     api.loadingNewCardOnServer(selectorsAll.infoTitle, selectorsAll.infoLink)
         .then(result => {
             addSection.addItem(renderCard(result));
+            popupAddCard.closePopup();
         })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
@@ -206,6 +200,7 @@ function loadingNewCard() {
 //loading info about user on server
 function loadingUserInfo() {
     api.loadingUserInfoOnServer(selectorsAll.infoName, selectorsAll.infoJob)
+        .then(() => popupEditProfile.closePopup())
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
         })
