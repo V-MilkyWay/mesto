@@ -2,10 +2,9 @@ export class Card {
     constructor({ name, link, likes = [], _id, owner },
         cardSelector,
         handleCardClick,
-        openPopupDeletion,
-        buttonDeleteCard,
         dislikeCards,
-        likeCards) {
+        likeCards,
+        buttonDeleteCard) {
         this._name = name;
         this._link = link;
         this._likes = likes;
@@ -14,10 +13,9 @@ export class Card {
         this._id = _id;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
-        this._openPopupDeletion = openPopupDeletion;
-        this._buttonDeleteCard = buttonDeleteCard;
         this._dislikeCards = dislikeCards;
         this._likeCards = likeCards;
+        this._buttonDeleteCard = buttonDeleteCard;
     }
     _getTemplate() {
         const cardElement = document
@@ -37,6 +35,9 @@ export class Card {
             this.numLikes.textContent = Number(this.numLikes.textContent) - Number(1);
             this._dislikeCards(this._id);
         }
+    }
+    deleteСard() {
+        this._element.remove();
     }
     generateCard() {
         this._element = this._getTemplate();
@@ -67,8 +68,7 @@ export class Card {
         });
 
         this._element.querySelector('.element__button-trash').addEventListener('click', () => {
-            this._buttonDeleteCard(this._element, this._id);
-            this._openPopupDeletion()
+            this._buttonDeleteCard(this, this._id)
         });
         this._element.querySelector('.element__image').addEventListener('click', () => {
             this._handleCardClick(this._element);

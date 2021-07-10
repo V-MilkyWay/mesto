@@ -32,7 +32,7 @@ cardAdd.toggleButtonState();
 const popupEditProfile = new PopupWithForm('.popup_type_redact', formEditProfileSubmitHandler);
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitAddCardForm);
 const popupRedactAvatar = new PopupWithForm('.popup_type_redact-avatar', submitRedactAvatarForm);
-const popupDeletion = new PopupWithDeletionButton('.popup_type_deletion', deleteServerCard);
+const popupDeletion = new PopupWithDeletionButton('.popup_type_deletion', submitDeleteCard);
 const popupImage = new PopupWithImage('.popup_type_image');
 
 const userInfo = new UserInfo(selectorsAll);
@@ -53,23 +53,29 @@ function formEditProfileSubmitHandler(evt, data) {
     popupEditProfile.closePopup();
 };
 
+function buttonDeleteCard(card, cardId) {
+    popupDeletion.openPopup();
+    popupDeletion.deleteEventListener(card, cardId);
+};
+
 function renderCard(item) {
     const card = new Card(
         item,
         '#card-template',
         handleCardClick,
-        openPopupDeletion,
-        buttonDeleteCard,
         dislikeCard,
-        likeCard);
+        likeCard,
+        buttonDeleteCard);
     const cardElement = card.generateCard();
     return cardElement;
 }
 
 //initial delele card
-function buttonDeleteCard(element, cardId) {
-    popupDeletion.deleteEventListener(element, cardId);
-    popupDeletion.closePopup();
+function submitDeleteCard(evt, card, cardId) {
+    evt.preventDefault();
+    deleteServerCard(cardId);
+    card.deleteСard();
+    popupDeletion.closePopup;
 }
 //open popup for delele card
 function openPopupDeletion() {
@@ -159,7 +165,7 @@ function deleteServerCard(cardId) {
     api.deleteCardFromServer(cardId)
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
-        });
+        })
 }
 //like cards
 function likeCard(likeId) {
