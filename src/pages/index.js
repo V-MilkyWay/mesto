@@ -137,20 +137,18 @@ const api = new Api({
         'Content-Type': 'application/json'
     }
 });
-
-//initial card from server
-api.initCardsFromServer().then(result => {
-    addSection.renderItems(result.reverse());
-});
-//initial users
-initialUsersFromServer();
-
-function initialUsersFromServer() {
-    api.initialUsers()
+initialAll();
+//initial users and initial card from server 
+function initialAll() {
+    Promise.all([api.initialUsers(), api.initCardsFromServer()])
         .then((result) => {
-            userInfo.setUserInfo(result);
-            userInfo.setAvatarLink(result);
-        });
+            userInfo.setUserInfo(result[0]);
+            userInfo.setAvatarLink(result[0]);
+            addSection.renderItems(result[1].reverse());
+        })
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
 }
 //delete cards from server
 function deleteServerCard(cardId) {
