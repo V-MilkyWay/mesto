@@ -45,10 +45,9 @@ const addSection = new Section({
     selectorsAll.elements
 );
 
-function formEditProfileSubmitHandler(evt, data) {
+function formEditProfileSubmitHandler(evt) {
     evt.preventDefault();
     renderLoading(true, popupProfileRedact);
-    userInfo.setUserInfo(data);
     loadingUserInfo();
 };
 
@@ -72,14 +71,12 @@ function renderCard(item) {
 //initial delele card
 function submitDeleteCard(evt, card, cardId) {
     evt.preventDefault();
-    deleteServerCard(cardId);
-    card.deleteСard();
+    deleteServerCard(card, cardId);
 }
 //redact avatar
-function submitRedactAvatarForm(evt, data) {
+function submitRedactAvatarForm(evt) {
     evt.preventDefault();
     renderLoading(true, popupAvatarRedact);
-    userInfo.setAvatarLink(data);
     loadingAvatar();
     cardRedactAvatar.toggleButtonState();
 }
@@ -151,11 +148,14 @@ function initialAll() {
         })
 }
 //delete cards from server
-function deleteServerCard(cardId) {
+function deleteServerCard(card, cardId) {
     api.deleteCardFromServer(cardId)
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
-        }).then(() => popupDeletion.closePopup());
+        }).then(() => {
+            card.deleteСard();
+            popupDeletion.closePopup()
+        });
 }
 //like cards
 function likeCard(likeId) {
@@ -172,8 +172,11 @@ function dislikeCard(likeId) {
 }
 //loading new avatar on server
 function loadingAvatar() {
-    api.loadingNewAvatarOnServer(selectorsAll.infoAvatar)
-        .then(() => popupRedactAvatar.closePopup())
+    api.loadingNewAvatarOnServer(selectorsAll.infoNewAvatar)
+        .then((result) => {
+            userInfo.setAvatarLink(result);
+            popupRedactAvatar.closePopup();
+        })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
         })
@@ -197,8 +200,11 @@ function loadingNewCard() {
 }
 //loading info about user on server
 function loadingUserInfo() {
-    api.loadingUserInfoOnServer(selectorsAll.infoName, selectorsAll.infoJob)
-        .then(() => popupEditProfile.closePopup())
+    api.loadingUserInfoOnServer(selectorsAll.infoRedactName, selectorsAll.infoRedactJob)
+        .then((result) => {
+            userInfo.setUserInfo(result);
+            popupEditProfile.closePopup();
+        })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
         })

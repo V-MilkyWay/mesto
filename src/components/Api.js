@@ -29,7 +29,7 @@ export class Api {
                 .then(res => this._getResponseData(res));
         }
         //loading info about user on server
-    loadingUserInfoOnServer(infoName, infoJob) {
+    loadingUserInfoOnServer(infoRedactName, infoRedactJob) {
             return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
                 headers: {
@@ -37,8 +37,8 @@ export class Api {
                     'Content-Type': this._contentType
                 },
                 body: JSON.stringify({
-                    name: document.querySelector(infoName).textContent,
-                    about: document.querySelector(infoJob).textContent
+                    name: document.querySelector(infoRedactName).value,
+                    about: document.querySelector(infoRedactJob).value
                 })
             }).then(res => this._getResponseData(res))
         }
@@ -96,7 +96,7 @@ export class Api {
                     'Content-Type': this._contentType
                 },
                 body: JSON.stringify({
-                    avatar: document.querySelector(infoAvatar).src
+                    avatar: document.querySelector(infoAvatar).value
                 })
             })
             .then(res => this._getResponseData(res))
