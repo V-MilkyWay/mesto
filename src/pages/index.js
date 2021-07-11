@@ -192,7 +192,6 @@ function loadingAvatar() {
 function loadingNewCard() {
     api.loadingNewCardOnServer(selectorsAll.infoTitle, selectorsAll.infoLink)
         .then((result) => {
-            console.log(result.owner._id);
             addSection.addItem(renderCard(result, result.owner));
             popupAddCard.closePopup();
         })
