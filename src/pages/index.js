@@ -38,8 +38,8 @@ const popupImage = new PopupWithImage('.popup_type_image');
 const userInfo = new UserInfo(selectorsAll);
 
 const addSection = new Section({
-        renderer: (item) => {
-            addSection.addItem(renderCard(item));
+        renderer: (item, myId) => {
+            addSection.addItem(renderCard(item, myId));
         }
     },
     selectorsAll.elements
@@ -56,14 +56,15 @@ function buttonDeleteCard(card, cardId) {
     popupDeletion.deleteEventListener(card, cardId);
 };
 
-function renderCard(item) {
+function renderCard(item, myId) {
     const card = new Card(
         item,
         '#card-template',
         handleCardClick,
         dislikeCard,
         likeCard,
-        buttonDeleteCard);
+        buttonDeleteCard,
+        myId);
     const cardElement = card.generateCard();
     return cardElement;
 }
@@ -134,14 +135,17 @@ const api = new Api({
         'Content-Type': 'application/json'
     }
 });
+
 initialAll();
+
+
 //initial users and initial card from server 
 function initialAll() {
     Promise.all([api.initialUsers(), api.initCardsFromServer()])
         .then((result) => {
             userInfo.setUserInfo(result[0]);
             userInfo.setAvatarLink(result[0]);
-            addSection.renderItems(result[1].reverse());
+            addSection.renderItems(result[1].reverse(), result[0]);
         })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
@@ -187,8 +191,9 @@ function loadingAvatar() {
 //loading new cards on server 
 function loadingNewCard() {
     api.loadingNewCardOnServer(selectorsAll.infoTitle, selectorsAll.infoLink)
-        .then(result => {
-            addSection.addItem(renderCard(result));
+        .then((result) => {
+            console.log(result.owner._id);
+            addSection.addItem(renderCard(result, result.owner));
             popupAddCard.closePopup();
         })
         .catch((err) => {

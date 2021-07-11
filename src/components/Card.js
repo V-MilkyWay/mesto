@@ -4,7 +4,8 @@ export class Card {
         handleCardClick,
         dislikeCards,
         likeCards,
-        buttonDeleteCard) {
+        buttonDeleteCard,
+        myId) {
         this._name = name;
         this._link = link;
         this._likes = likes;
@@ -16,6 +17,7 @@ export class Card {
         this._dislikeCards = dislikeCards;
         this._likeCards = likeCards;
         this._buttonDeleteCard = buttonDeleteCard;
+        this._myId = myId._id;
     }
     _getTemplate() {
         const cardElement = document
@@ -45,7 +47,7 @@ export class Card {
 
         this._likCard = this._element.querySelector('.element-like__like');
         this._likes.forEach(likes => {
-            if (likes._id === '3763323d9d807db6f0706222') {
+            if (likes._id === this._myId) {
                 this._likCard.classList.add('element-like__like_active')
             }
         });
@@ -55,7 +57,7 @@ export class Card {
         this._element.querySelector('.element__image').alt = this._name;
         this._element.querySelector('.element-like__number').textContent = this._number;
 
-        if (this._owner === '3763323d9d807db6f0706222') {
+        if (this._owner === this._myId) {
             return this._element;
         } else {
             this._element.querySelector('.element__button-trash').style.display = "none";
