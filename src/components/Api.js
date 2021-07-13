@@ -29,7 +29,7 @@ export class Api {
                 .then(res => this._getResponseData(res));
         }
         //loading info about user on server
-    loadingUserInfoOnServer(infoRedactName, infoRedactJob) {
+    loadingUserInfoOnServer({ name, about }) {
             return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
                 headers: {
@@ -37,8 +37,8 @@ export class Api {
                     'Content-Type': this._contentType
                 },
                 body: JSON.stringify({
-                    name: document.querySelector(infoRedactName).value,
-                    about: document.querySelector(infoRedactJob).value
+                    name,
+                    about
                 })
             }).then(res => this._getResponseData(res))
         }

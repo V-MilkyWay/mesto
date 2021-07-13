@@ -7,6 +7,8 @@ export const openRedactAvatarPopupBtn = document.querySelector('.profile-avatar_
 export const popupProfileRedact = document.querySelector('.popup_type_redact');
 export const popupAvatarRedact = document.querySelector('.popup_type_redact-avatar');
 export const popupAddNewCard = document.querySelector('.popup_type_add-card');
+export const nameInput = document.querySelector('.form__input_type_name');
+export const jobInput = document.querySelector('.form__input_type_job');
 
 export const selectorsAll = {
     formSelector: '.form',

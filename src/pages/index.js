@@ -17,6 +17,8 @@ import {
     popupProfileRedact,
     popupAvatarRedact,
     popupAddNewCard,
+    nameInput,
+    jobInput,
     selectorsAll
 } from '../utils/constants.js';
 
@@ -45,10 +47,10 @@ const addSection = new Section({
     selectorsAll.elements
 );
 
-function formEditProfileSubmitHandler(evt) {
+function formEditProfileSubmitHandler(evt, data) {
     evt.preventDefault();
     renderLoading(true, popupProfileRedact);
-    loadingUserInfo();
+    loadingUserInfo(data);
 };
 
 function buttonDeleteCard(card, cardId) {
@@ -92,8 +94,6 @@ function submitAddCardForm(evt) {
 
 openEditProfilePopupBtn.addEventListener('click', function() {
     const data = userInfo.getUserInfo();
-    const nameInput = document.querySelector('.form__input_type_name');
-    const jobInput = document.querySelector('.form__input_type_job');
 
     nameInput.value = data.name;
     jobInput.value = data.about;
@@ -203,8 +203,8 @@ function loadingNewCard() {
         });
 }
 //loading info about user on server
-function loadingUserInfo() {
-    api.loadingUserInfoOnServer(selectorsAll.infoRedactName, selectorsAll.infoRedactJob)
+function loadingUserInfo(data) {
+    api.loadingUserInfoOnServer({ name: data.name, about: data.about })
         .then((result) => {
             userInfo.setUserInfo(result);
             popupEditProfile.closePopup();
