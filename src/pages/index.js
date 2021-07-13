@@ -77,17 +77,17 @@ function submitDeleteCard(evt, card, cardId) {
     deleteServerCard(card, cardId);
 }
 //redact avatar
-function submitRedactAvatarForm(evt) {
+function submitRedactAvatarForm(evt, data) {
     evt.preventDefault();
     renderLoading(true, popupAvatarRedact);
-    loadingAvatar();
+    loadingAvatar(data);
     cardRedactAvatar.toggleButtonState();
 }
 //initial new card
-function submitAddCardForm(evt) {
+function submitAddCardForm(evt, data) {
     evt.preventDefault();
     renderLoading(true, popupAddNewCard);
-    loadingNewCard();
+    loadingNewCard(data);
     cardEditProfile.toggleButtonState();
     cardAdd.toggleButtonState();
 }
@@ -175,8 +175,8 @@ function dislikeCard(likeId) {
     });
 }
 //loading new avatar on server
-function loadingAvatar() {
-    api.loadingNewAvatarOnServer(selectorsAll.infoNewAvatar)
+function loadingAvatar(data) {
+    api.loadingNewAvatarOnServer({ avatar: data.avatar })
         .then((result) => {
             userInfo.setAvatarLink(result);
             popupRedactAvatar.closePopup();
@@ -189,8 +189,8 @@ function loadingAvatar() {
         });
 }
 //loading new cards on server 
-function loadingNewCard() {
-    api.loadingNewCardOnServer(selectorsAll.infoTitle, selectorsAll.infoLink)
+function loadingNewCard(data) {
+    api.loadingNewCardOnServer({ name: data.title, link: data.link })
         .then((result) => {
             addSection.addItem(renderCard(result, result.owner));
             popupAddCard.closePopup();

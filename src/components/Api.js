@@ -43,7 +43,7 @@ export class Api {
             }).then(res => this._getResponseData(res))
         }
         //loading new cards on server 
-    loadingNewCardOnServer(infoTitle, infoLink) {
+    loadingNewCardOnServer({ name, link }) {
             return fetch(`${this._baseUrl}/cards`, {
                     method: 'POST',
                     headers: {
@@ -51,8 +51,8 @@ export class Api {
                         'Content-Type': this._contentType
                     },
                     body: JSON.stringify({
-                        name: document.querySelector(infoTitle).value,
-                        link: document.querySelector(infoLink).value,
+                        name,
+                        link
                     })
                 })
                 .then(res => this._getResponseData(res));
@@ -88,7 +88,7 @@ export class Api {
                 .then(res => this._getResponseData(res))
         }
         //loading new avatar on server
-    loadingNewAvatarOnServer(infoAvatar) {
+    loadingNewAvatarOnServer({ avatar }) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
                 method: 'PATCH',
                 headers: {
@@ -96,7 +96,7 @@ export class Api {
                     'Content-Type': this._contentType
                 },
                 body: JSON.stringify({
-                    avatar: document.querySelector(infoAvatar).value
+                    avatar
                 })
             })
             .then(res => this._getResponseData(res))
