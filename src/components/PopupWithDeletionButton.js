@@ -5,10 +5,14 @@ export class PopupWithDeletionButton extends Popup {
         super(popupSelector);
         this._deleteCardFromServer = deleteCardFromServer;
     }
-
-    deleteEventListener(card, cardId) {
+    openPopup(card, cardId) {
+        super.openPopup();
+        this._card = card
+        this._cardId = cardId
+    }
+    deleteEventListener() {
         this._popup.querySelector('.form').addEventListener('submit', (evt) => {
-            this._deleteCardFromServer(evt, card, cardId);
+            this._deleteCardFromServer(evt, this._card, this._cardId);
         });
     }
 

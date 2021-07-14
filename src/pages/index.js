@@ -54,8 +54,8 @@ function formEditProfileSubmitHandler(evt, data) {
 };
 
 function buttonDeleteCard(card, cardId) {
-    popupDeletion.openPopup();
-    popupDeletion.deleteEventListener(card, cardId);
+    popupDeletion.openPopup(card, cardId);
+    popupDeletion.deleteEventListener();
 };
 
 function renderCard(item, myId) {
@@ -158,7 +158,7 @@ function deleteServerCard(card, cardId) {
             renderError(`Ошибка: ${err}`);
         }).then(() => {
             card.deleteСard();
-            popupDeletion.closePopup()
+            popupDeletion.closePopup(card, cardId)
         });
 }
 //like cards
