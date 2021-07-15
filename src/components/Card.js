@@ -19,6 +19,7 @@ export class Card {
         this._buttonDeleteCard = buttonDeleteCard;
         this._myId = myId._id;
     }
+
     _getTemplate() {
         const cardElement = document
             .querySelector(this._cardSelector)
@@ -28,15 +29,23 @@ export class Card {
         return cardElement;
     }
     _setLikeCardListener(evt) {
-        this.numLikes = this._element.querySelector('.element-like__number');
         if (
             evt.target.classList.toggle('element-like__like_active')) {
-            this.numLikes.textContent = Number(this.numLikes.textContent) + Number(1);
-            this._likeCards(this._id);
+            this._likeCards(this, this._id);
         } else {
-            this.numLikes.textContent = Number(this.numLikes.textContent) - Number(1);
-            this._dislikeCards(this._id);
+            this._dislikeCards(this, this._id);
         }
+    }
+    _numLikesElement() {
+        this._numLikes = this._element.querySelector('.element-like__number');
+        return this._numLikes
+    }
+
+    likesCard() {
+        this._numLikesElement().textContent = Number(this._numLikesElement().textContent) + Number(1);
+    }
+    dislikesCard() {
+        this._numLikesElement().textContent = Number(this._numLikesElement().textContent) - Number(1);
     }
     deleteСard() {
         this._element.remove();

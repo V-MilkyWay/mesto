@@ -162,17 +162,28 @@ function deleteServerCard(card, cardId) {
         });
 }
 //like cards
-function likeCard(likeId) {
-    api.likeCards(likeId).catch((err) => {
-        renderError(`Ошибка: ${err}`);
-    });
+function likeCard(card, likeId) {
+    api.likeCards(likeId)
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
+        .then(() => {
+            {
+                card.likesCard();
+            }
+        })
 }
-
 //dislike cards
-function dislikeCard(likeId) {
-    api.dislikeCards(likeId).catch((err) => {
-        renderError(`Ошибка: ${err}`);
-    });
+function dislikeCard(card, likeId) {
+    api.dislikeCards(likeId)
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
+        })
+        .then(() => {
+            {
+                card.dislikesCard();
+            }
+        })
 }
 //loading new avatar on server
 function loadingAvatar(data) {
