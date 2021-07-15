@@ -154,35 +154,32 @@ function initialAll() {
 //delete cards from server
 function deleteServerCard(card, cardId) {
     api.deleteCardFromServer(cardId)
-        .catch((err) => {
-            renderError(`Ошибка: ${err}`);
-        }).then(() => {
+        .then(() => {
             card.deleteСard();
             popupDeletion.closePopup(card, cardId)
+        })
+        .catch((err) => {
+            renderError(`Ошибка: ${err}`);
         });
 }
 //like cards
 function likeCard(card, likeId) {
     api.likeCards(likeId)
+        .then(() => {
+            card.likesCard();
+        })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
-        })
-        .then(() => {
-            {
-                card.likesCard();
-            }
         })
 }
 //dislike cards
 function dislikeCard(card, likeId) {
     api.dislikeCards(likeId)
+        .then(() => {
+            card.dislikesCard();
+        })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
-        })
-        .then(() => {
-            {
-                card.dislikesCard();
-            }
         })
 }
 //loading new avatar on server
