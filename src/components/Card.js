@@ -28,25 +28,32 @@ export class Card {
             .cloneNode(true);
         return cardElement;
     }
-    _setLikeCardListener(evt) {
-        if (
-            evt.target.classList.toggle('element-like__like_active')) {
-            this._likeCards(this, this._id);
-        } else {
+    _setLikeCardListener() {
+        if (this._checkLikes(this._likes)) {
             this._dislikeCards(this, this._id);
+        } else {
+            this._likeCards(this, this._id);
         }
+    }
+    _checkLikes(likes) {
+        return likes?.some((user) => user._id === this._myId)
     }
     _numLikesElement() {
         this._numLikes = this._element.querySelector('.element-like__number');
         return this._numLikes
     }
+    showLikes(likes) {
+        if (this._checkLikes(likes)) {
+            this._likCard.classList.add('element-like__like_active')
+            this._likes = likes;
+            this._numLikesElement().textContent = Number(this._numLikesElement().textContent) + Number(1);
+        } else {
+            this._likCard.classList.remove('element-like__like_active')
+            this._likes = likes;
+            this._numLikesElement().textContent = Number(this._numLikesElement().textContent) - Number(1);
+        }
+    }
 
-    likesCard() {
-        this._numLikesElement().textContent = Number(this._numLikesElement().textContent) + Number(1);
-    }
-    dislikesCard() {
-        this._numLikesElement().textContent = Number(this._numLikesElement().textContent) - Number(1);
-    }
     deleteСard() {
         this._element.remove();
     }
@@ -74,8 +81,8 @@ export class Card {
         }
     }
     _setEventListeners() {
-        this._element.querySelector('.element-like__like').addEventListener('click', (evt) => {
-            this._setLikeCardListener(evt);
+        this._element.querySelector('.element-like__like').addEventListener('click', () => {
+            this._setLikeCardListener();
         });
 
         this._element.querySelector('.element__button-trash').addEventListener('click', () => {

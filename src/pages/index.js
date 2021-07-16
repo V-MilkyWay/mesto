@@ -165,8 +165,8 @@ function deleteServerCard(card, cardId) {
 //like cards
 function likeCard(card, likeId) {
     api.likeCards(likeId)
-        .then(() => {
-            card.likesCard();
+        .then((result) => {
+            card.showLikes(result.likes);
         })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
@@ -175,8 +175,8 @@ function likeCard(card, likeId) {
 //dislike cards
 function dislikeCard(card, likeId) {
     api.dislikeCards(likeId)
-        .then(() => {
-            card.dislikesCard();
+        .then((result) => {
+            card.showLikes(result.likes);
         })
         .catch((err) => {
             renderError(`Ошибка: ${err}`);
